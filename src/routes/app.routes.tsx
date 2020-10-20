@@ -7,7 +7,7 @@ import Profile from '../pages/Profile';
 const App = createStackNavigator();
 
 const AppRoutes: React.FC = () => (
-  <App.Navigator>
+  <App.Navigator screenOptions={{headerTitleAlign: 'center'}} >
     <App.Screen name="Dashboard" component={Dashboard} options={{
       headerShown: false,
     }} />
