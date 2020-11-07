@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "868242068523",
+    "firebase_url": "https://play-logic.firebaseio.com",
+    "project_id": "play-logic",
+    "storage_bucket": "play-logic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868242068523:android:8fd3cc9301c5ec87c5066e",
+        "android_client_info": {
+          "package_name": "com.playlogic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868242068523-74kv858m3aaikst639vmd1gkv3dls7et.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMyh6NnZLyZ1a4_BzAxIUpvdHlj2kVPfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868242068523-74kv858m3aaikst639vmd1gkv3dls7et.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
