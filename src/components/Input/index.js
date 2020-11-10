@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { Container, TextInput } from './styles';
 
-const Input = ({ value = '', ...rest }) => {
+const Input = ({ value, ...rest }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -13,11 +13,15 @@ const Input = ({ value = '', ...rest }) => {
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
-    setIsFilled(!!value);
+    if (value) {
+      setIsFilled(true);
+    } else {
+      setIsFilled(false);
+    }
   }, [value]);
 
   return (
-    <Container isFocused={isFocused}>
+    <Container isFocused={isFocused} isFilled={isFilled}>
       <TextInput
         placeholderTextColor="#FFFFFF"
         onFocus={handleInputFocus}

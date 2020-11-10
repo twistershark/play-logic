@@ -6,6 +6,16 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 16px;
+  font-size: 120px;
   color: #000;
+`;
+
+export const Logout = styled.TouchableOpacity`
+  margin-top: 80px;
+  background: red;
+`;
+
+export const LogoutText = styled.Text`
+  color: #fff;
+  font-size: 50px;
 `;
