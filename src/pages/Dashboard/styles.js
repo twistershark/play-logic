@@ -19,3 +19,7 @@ export const LogoutText = styled.Text`
   color: #fff;
   font-size: 50px;
 `;
+
+export const Logo = styled.Image`
+  marginTop: 260px;
+`;

@@ -4,20 +4,19 @@ import {
   Container,
   Title,
   Logout,
+  Logo,
   LogoutText,
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
+import  logoImg  from '../../assets/logo.png'
 
 const Dashboard = () => {
   const { logout } = useAuth();
 
   return (
     <Container>
-      <Title>Dashboard</Title>
-      <Logout onPress={() => logout()}>
-        <LogoutText>LogOut</LogoutText>
-      </Logout>
+      <Logo  source = {logoImg}/>
     </Container>
   );
 };
