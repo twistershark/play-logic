@@ -1,44 +1,46 @@
-import styled from 'styled-components'; 
+import styled from 'styled-components/native'; 
 
-export const container = styled.View `
-width: 250;
-height: 160;
+export const Container = styled.View `
+width: 250px;
+height: 160px;
 `
-export const header = styled.View `
-flex-direction: 'row'; 
-background-color: '#1A260180'; 
-height:40;
+export const Header = styled.View `
+flex-direction: row; 
+background-color: #1A260180; 
+height:40px;
 ` 
-  
+export const List = styled.FlatList `
 
-export const itemHeader = styled.View `
+` 
+
+export const ItemHeader = styled.View `
   flex: 1;
-  justify-content: 'center'; 
-  align-items: 'center';
-  border-width: 1; 
-  border-color:'black';`
+  justify-content: center; 
+  align-items: center;
+  border-width: 1px; 
+  border-color:black;`
    
-export const itemList = styled.View `
-  height:40; 
-  flex-direction: 'row'; 
-  align-items: 'center';
-  justify-content: 'space-between';
-  padding-right: 50;
-  padding-left: 50;
+export const ItemList = styled.View `
+  height:40px; 
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between; 
+  padding-right: 50px;
+  padding-left: 50px;
   `
-export const text = styled.Text` 
-  color: 'white';
-  font-size: 25;`
+export const Text = styled.Text` 
+  color: white;
+  font-size: 25px;`
 
-export const itemView = styled.View`
+export const ItemView = styled.View`
   flex: 1;
-  flex-direction:'row';
-  align-items:'center';
-  padding: 15;
+  flex-direction: row; 
+  align-items:center;
+  padding-left: 15px; 
 `
-export const imageScore = styled.Image `
-  width: 30;
-  height: 30;
-  margin-right: 2;
-  margin-left: 2;  
+export const ImageScore = styled.Image `
+  width: 30px;
+  height: 30px;
+  margin-right: 2px;
+  margin-left: 2px;  
 `
