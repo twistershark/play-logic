@@ -1,13 +1,34 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
+  const [score1, setScore1] = useState(0);
+  const [score2, setScore2] = useState(0);
+  const [score3, setScore3] = useState(0);
   const { initializing, setInitializing } = useState(true);
+
+  const onAuthStateChanged = useCallback((u) => {
+    setUser(u);
+  }, []);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, [onAuthStateChanged]);
 
   return (
     <AuthContext.Provider
@@ -18,7 +39,22 @@ const AuthProvider = ({ children }) => {
         setInitializing,
         login: async (email, password) => {
           try {
-            await auth().signInWithEmailAndPassword(email, password);
+            const loggedUser = await auth().signInWithEmailAndPassword(email, password);
+
+            if (loggedUser.additionalUserInfo.isNewUser === false) {
+              await firestore().collection('users').doc(loggedUser.user.uid).set({
+                score1: 0,
+                score2: 0,
+                score3: 0,
+              })
+                .then();
+            } else {
+              const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
+
+              setScore1(document.data.score1);
+              setScore2(document.data.score2);
+              setScore3(document.data.score3);
+            }
           } catch (e) {
             console.log(e);
           }
@@ -32,7 +68,22 @@ const AuthProvider = ({ children }) => {
             const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
             // Sign-in the user with the credential
-            await auth().signInWithCredential(googleCredential);
+            const loggedUser = await auth().signInWithCredential(googleCredential);
+
+            if (loggedUser.additionalUserInfo.isNewUser === false) {
+              await firestore().collection('users').doc(loggedUser.user.uid).set({
+                score1: 0,
+                score2: 0,
+                score3: 0,
+              })
+                .then();
+            } else {
+              const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
+
+              setScore1(document.data.score1);
+              setScore2(document.data.score2);
+              setScore3(document.data.score3);
+            }
           } catch (e) {
             console.log(e);
           }
@@ -57,14 +108,36 @@ const AuthProvider = ({ children }) => {
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
             // Sign-in the user with the credential
-            return auth().signInWithCredential(facebookCredential);
+            const loggedUser = auth().signInWithCredential(facebookCredential);
+
+            if (loggedUser.additionalUserInfo.isNewUser === false) {
+              await firestore().collection('users').doc(loggedUser.user.uid).set({
+                score1: 0,
+                score2: 0,
+                score3: 0,
+              })
+                .then();
+            } else {
+              const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
+
+              setScore1(document.data.score1);
+              setScore2(document.data.score2);
+              setScore3(document.data.score3);
+            }
           } catch (e) {
             console.log(e);
           }
         },
         register: async (email, password) => {
           try {
-            await auth().createUserWithEmailAndPassword(email, password);
+            const loggedUser = await auth().createUserWithEmailAndPassword(email, password);
+
+            await firestore().collection('users').doc(loggedUser.user.uid).set({
+              score1: 0,
+              score2: 0,
+              score3: 0,
+            })
+              .then();
           } catch (e) {
             console.log(e);
           }
