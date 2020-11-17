@@ -1,19 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
 import {
-  BackNavigation,
-  BackArrow,
-  Container,
-  Title,
-  FormContainer,
-  InformationText,
-  SocialLoginContainer,
-  SocialLogin,
-  SocialLogo,
-  SocialLoginText,
-} from './styles';
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import { useNavigation } from '@react-navigation/native';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -49,39 +45,99 @@ const SignUp = () => {
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
-        <BackNavigation onPress={() => navigation.goBack()}>
-          <BackArrow source={backArrow} />
-        </BackNavigation>
-        <Container>
-          <Title>Cadastre-se</Title>
-          <FormContainer>
+        <TouchableOpacity style={styles.backNavigation} onPress={() => navigation.goBack()}>
+          <Image source={backArrow} />
+        </TouchableOpacity>
+        <View style={styles.container}>
+          <Text style={styles.title}>Cadastre-se</Text>
+          <View style={styles.formContainer}>
             <Input value={email} placeholder="Email" onChangeText={(userEmail) => setEmail(userEmail)} />
             <Input value={password} placeholder="Senha" onChangeText={(userPassword) => setPassword(userPassword)} secureTextEntry />
             <Input value={passwordConfirmation} placeholder="Confirmar Senha" onChangeText={(userPasswordConfirmation) => setPasswordConfirmation(userPasswordConfirmation)} secureTextEntry />
-          </FormContainer>
+          </View>
 
-          <InformationText>
+          <Text style={styles.informationText}>
             Ao registrar-se você concorda com nosso termos de serviço e política de privacidade
-          </InformationText>
+          </Text>
 
-          <SocialLoginContainer>
-            <SocialLogin onPress={() => googleLogin()}>
-              <SocialLogo source={googleLogo} />
-              <SocialLoginText>Entrar com a conta Google</SocialLoginText>
-            </SocialLogin>
+          <View style={styles.socialLoginContainer}>
+            <TouchableOpacity style={styles.socialLogin} onPress={() => googleLogin()}>
+              <Image style={styles.socialLogo} source={googleLogo} />
+              <Text style={styles.socialLoginText}>Entrar com a conta Google</Text>
+            </TouchableOpacity>
 
-            <SocialLogin onPress={() => facebookLogin()}>
-              <SocialLogo source={facebookLogo} />
-              <SocialLoginText>Entrar com Facebook</SocialLoginText>
-            </SocialLogin>
-          </SocialLoginContainer>
+            <TouchableOpacity style={styles.socialLogin} onPress={() => facebookLogin()}>
+              <Image style={styles.socialLogo} source={facebookLogo} />
+              <Text style={styles.socialLoginText}>Entrar com Facebook</Text>
+            </TouchableOpacity>
+          </View>
 
           <Button onPress={() => handleSignUp()}>Cadastrar</Button>
 
-        </Container>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
 
 export default SignUp;
+
+const styles = EStyleSheet.create({
+  backNavigation: {
+    marginTop: '2rem',
+    marginLeft: '0.75rem',
+  },
+
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: '1.5rem',
+    paddingRight: '1.5rem',
+  },
+
+  title: {
+    marginTop: '1rem',
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+
+  formContainer: {
+    marginTop: '1.25rem',
+  },
+
+  informationText: {
+    marginTop: '0.5rem',
+    fontSize: '0.75rem',
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  socialLoginContainer: {
+    marginTop: '2rem',
+    width: '100%',
+  },
+
+  socialLogin: {
+    backgroundColor: '#426B00',
+    borderRadius: '0.625rem',
+    width: '100%',
+    height: '3.125rem',
+    marginTop: '1rem',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  socialLogo: {
+    marginRight: '3.125rem',
+    marginLeft: '1.25rem',
+  },
+
+  socialLoginText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});

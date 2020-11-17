@@ -1,29 +1,48 @@
 import React from 'react';
 
-import {
-  Container,
-  Title,
-  Logout,
-  LogoutText,
-} from './styles';
+import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
-import { Text ,TouchableOpacity} from 'react-native'
 
-const Dashboard = ({navigation}) => {
+const Dashboard = () => {
   const { logout } = useAuth();
+  const navigation = useNavigation();
 
   return (
-    <Container>
-      <Title>Dashboard</Title>
-      <Logout onPress={() => logout()}>
-        <LogoutText>LogOut</LogoutText>
-      </Logout>
-      <TouchableOpacity onPress = { () => navigation.navigate("Profile")}> 
-      <Text>Profile</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Dashboard</Text>
+      <TouchableOpacity style={styles.logout} onPress={() => logout()}>
+        <Text style={styles.logoutText}>LogOut</Text>
       </TouchableOpacity>
-    </Container>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Text>Profile</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 export default Dashboard;
+
+const styles = EStyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  title: {
+    fontSize: 120,
+    color: '#000',
+  },
+
+  logout: {
+    marginTop: 80,
+    backgroundColor: 'red',
+  },
+
+  logoutText: {
+    color: '#fff',
+    fontSize: 50,
+  },
+});

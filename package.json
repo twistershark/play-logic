@@ -23,6 +23,7 @@
     "eslint-plugin-react-hooks": "^4",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-extended-stylesheet": "^0.12.0",
     "react-native-fbsdk": "^2.0.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-reanimated": "^1.13.1",
