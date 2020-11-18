@@ -4,12 +4,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-
 import { StatusBar } from 'react-native';
 import Routes from './routes';
 
 import { AuthProvider } from './hooks/auth';
-
 
 const App = () => {
   EStyleSheet.build();
@@ -23,6 +21,5 @@ const App = () => {
     </NavigationContainer>
   );
 };
-
 
 export default App;
