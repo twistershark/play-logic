@@ -10,6 +10,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 
+import backArrow from '../../assets/backarrow.png';
+
 const Stage = () => {
   const navigation = useNavigation();
 
@@ -20,8 +22,9 @@ const Stage = () => {
         <Image source={backArrow} />
       </TouchableOpacity>
       </View>
-      
-      <Text style = {styles.title}>Pagina de fases</Text>
+      <View>
+        
+      </View>
     </SafeAreaView>
   );
 };
