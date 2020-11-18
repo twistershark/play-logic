@@ -20,6 +20,8 @@ import  volumeOff  from '../../assets/volumeOFF.png'
 import  iconUser  from '../../assets/IconUser.png'
 import play from '../../assets/IconPlay.png'
 
+import ScreenOrientation, {PORTRAIT} from 'react-native-orientation-locker/ScreenOrientation';
+
 const Dashboard = () => {
   const { logout } = useAuth();
   const navigation = useNavigation();
@@ -28,10 +30,10 @@ const Dashboard = () => {
   const setImage =() =>{
     setImageVolume(!imageVolume);
   }
-   
-
+  
   return (
     <SafeAreaView>
+      <ScreenOrientation orientation = {PORTRAIT}/>
       <View style = {styles.topArea}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Image source = {iconUser}/>
