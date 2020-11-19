@@ -2,16 +2,20 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image} from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import {useNavigation} from '@react-navigation/native'
+
 import Done from '../../assets/done.png'
 import LockedPadlock from '../../assets/lockedPadlock.png'
 import UnlockedPadlock from '../../assets/unlockedPadlock.png'
 
 const StageBox = ({id, status}) =>  {
+  const navigation = useNavigation(); 
+  
   return (
     <View style = {styles.container}>
-      <TouchableOpacity> 
+      <TouchableOpacity onPress = { () => navigation.navigate(`Stage${id}`)}> 
         <View style = {[styles.box, id%2==0? {backgroundColor: '#FFE342'}: ' ']}>  
-          <Text style = {[styles.text, {alignSelf: 'center', paddingTop: 15}]}>{id}</Text>
+          <Text style = {styles.text}>{id}</Text>
           <View style = {styles.status}>
             <Image source = {status>0?  (status==1? UnlockedPadlock : LockedPadlock) : Done} style = {styles.image}/>
           </View>
@@ -34,19 +38,20 @@ const styles = EStyleSheet.create({
   },
   text: {
     fontSize: '2rem',
-    color: '#538900'
+    color: '#538900',
+    alignSelf: 'center', 
+    paddingTop: '1rem'
+
   },
   status: {
     alignItems: 'flex-end',
-    paddingRight: 8,
-    paddingTop: 5,
+    paddingRight: '0.5rem',
+    paddingTop: '0.4rem',
   },
   image: {
-    width:20,
-    height: 20, 
-    
+    width:'1.2rem',
+    height: '1.2rem', 
   }
-
 })
 
 

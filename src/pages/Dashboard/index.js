@@ -44,7 +44,7 @@ const Dashboard = () => {
       </View>
       <View style = {styles.bodyArea}>
         <Image style = {styles.logo} source = {logoImg}/>
-        <TouchableOpacity onPress = {() => navigation.navigate('Stage')}>
+        <TouchableOpacity onPress = {() => navigation.navigate('Stages')}>
             <Image style = {styles.playImage} source = {play}/>
         </TouchableOpacity>
       </View>

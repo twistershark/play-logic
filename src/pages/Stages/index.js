@@ -50,6 +50,6 @@ const styles = EStyleSheet.create({
     alignItems: 'center', 
     marginTop: '6rem', 
     marginLeft: '6rem',
-    paddingHorizontal: 15, 
+    paddingHorizontal: '1rem', 
   }
 });
