@@ -6,16 +6,16 @@ import Done from '../../assets/done.png'
 import LockedPadlock from '../../assets/lockedPadlock.png'
 import UnlockedPadlock from '../../assets/unlockedPadlock.png'
 
-const StageBox = ({id}) =>  {
+const StageBox = ({id, status}) =>  {
   return (
     <View style = {styles.container}>
       <TouchableOpacity> 
         <View style = {[styles.box, id%2==0? {backgroundColor: '#FFE342'}: ' ']}>  
-          <Text style = {styles.text}>{id}</Text>
-        </View>
-        <View>
-          <Image source = {Done}/> 
-        </View>
+          <Text style = {[styles.text, {alignSelf: 'center', paddingTop: 15}]}>{id}</Text>
+          <View style = {styles.status}>
+            <Image source = {status>0?  (status==1? UnlockedPadlock : LockedPadlock) : Done} style = {styles.image}/>
+          </View>
+        </View>     
       </TouchableOpacity>
     </View>
   )
@@ -28,15 +28,25 @@ const styles = EStyleSheet.create({
     width: '6.2rem',
     height: '6.2rem',
     backgroundColor: '#592C15',
-    borderRadius: 10,
+    borderRadius: '0.6rem',
     justifyContent: 'center',
-    alignItems: 'center', 
+    
   },
-
   text: {
-    fontSize: '2.5rem',
+    fontSize: '2rem',
     color: '#538900'
+  },
+  status: {
+    alignItems: 'flex-end',
+    paddingRight: 8,
+    paddingTop: 5,
+  },
+  image: {
+    width:20,
+    height: 20, 
+    
   }
+
 })
 
 

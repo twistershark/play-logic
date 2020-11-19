@@ -28,9 +28,9 @@ const Stage = () => {
           </TouchableOpacity>
         </View>
         <View style = {styles.stages}>
-          <StageBox id = {1}/> 
-          <StageBox id = {2}/> 
-          <StageBox id = {3}/> 
+          <StageBox id = {1} status = {0}/> 
+          <StageBox id = {2} status = {1}/> 
+          <StageBox id = {3} status = {2}/> 
         </View> 
       
     </SafeAreaView>
