@@ -35,6 +35,9 @@ const AuthProvider = ({ children }) => {
       value={{
         user,
         setUser,
+        score1,
+        score2,
+        score3,
         initializing,
         setInitializing,
         login: async (email, password) => {

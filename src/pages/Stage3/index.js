@@ -1,27 +1,28 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import React from 'react';
+import {
+  View, Text, TouchableOpacity, Image,
+} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import EStyleSheet from 'react-native-extended-stylesheet';
 import backArrow from '../../assets/backarrow.png';
 
-import EStyleSheet from 'react-native-extended-stylesheet';
-
 const Stage3 = () => {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   return (
     <View>
       <View>
-        <TouchableOpacity style = {styles.backNavigation} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.backNavigation} onPress={() => navigation.goBack()}>
           <Image source={backArrow} />
         </TouchableOpacity>
       </View>
-      <View style = {styles.container}>
-        <Text style = {{color:'red'}}>Bem vindo à Fase 3</Text>
+      <View style={styles.container}>
+        <Text style={{ color: 'red' }}>Bem vindo à Fase 3</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = EStyleSheet.create({
   backNavigation: {
@@ -31,8 +32,8 @@ const styles = EStyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-})
+});
 
-export default Stage3; 
+export default Stage3;
