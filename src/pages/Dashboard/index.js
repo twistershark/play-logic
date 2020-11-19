@@ -58,12 +58,12 @@ export default Dashboard;
 const styles = EStyleSheet.create({
   logo: {
     alignItems: 'center',
-    marginTop: 100
+    marginTop: '7rem'
   },
 
   playImage: {
     alignItems: 'center',
-    marginTop: 80
+    marginTop: '8rem',
   },
   topArea: {
     paddingLeft: 10,

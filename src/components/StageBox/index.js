@@ -1,7 +1,10 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import { View, Text, TouchableOpacity, Image} from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import Done from '../../assets/done.png'
+import LockedPadlock from '../../assets/lockedPadlock.png'
+import UnlockedPadlock from '../../assets/unlockedPadlock.png'
 
 const StageBox = ({id}) =>  {
   return (
@@ -9,6 +12,9 @@ const StageBox = ({id}) =>  {
       <TouchableOpacity> 
         <View style = {[styles.box, id%2==0? {backgroundColor: '#FFE342'}: ' ']}>  
           <Text style = {styles.text}>{id}</Text>
+        </View>
+        <View>
+          <Image source = {Done}/> 
         </View>
       </TouchableOpacity>
     </View>
@@ -19,8 +25,8 @@ const styles = EStyleSheet.create({
     flex: 1
   },  
   box: {
-    width: 100,
-    height: 100,
+    width: '6.2rem',
+    height: '6.2rem',
     backgroundColor: '#592C15',
     borderRadius: 10,
     justifyContent: 'center',
