@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -16,10 +17,83 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const [score1, setScore1] = useState(0);
-  const [score2, setScore2] = useState(0);
-  const [score3, setScore3] = useState(0);
+  const [userID, setUserID] = useState('');
+  const [score1, setScore1] = useState(-1);
+  const [score2, setScore2] = useState(-1);
+  const [score3, setScore3] = useState(-1);
   const { initializing, setInitializing } = useState(true);
+
+  useEffect(() => {
+    async function loadUserID() {
+      try {
+        const id = await AsyncStorage.getItem('@PlayLogic:userid');
+        setUserID(id);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    loadUserID();
+  }, [userID]);
+
+  const handleScoreUpdate = useCallback(async (stage, score) => {
+    const updatedScore = [score1, score2, score3];
+
+    switch (stage) {
+      case 1:
+        setScore1(score);
+        updatedScore[0] = score;
+        break;
+      case 2:
+        setScore2(score);
+        updatedScore[1] = score;
+        break;
+      case 3:
+        setScore3(score);
+        updatedScore[2] = score;
+        break;
+      default:
+    }
+
+    if (userID.length) {
+      await firestore().collection('users').doc(userID).set({
+        score1: updatedScore[0],
+        score2: updatedScore[1],
+        score3: updatedScore[2],
+      })
+        .then();
+    }
+
+    const scores = {
+      score1,
+      score2,
+      score3,
+    };
+    await AsyncStorage.setItem(
+      '@PlayLogic:scores', JSON.stringify(scores),
+    );
+  }, [score1, score2, score3, userID]);
+
+  useEffect(() => {
+    async function loadScores() {
+      try {
+        const storage = await AsyncStorage.getItem(
+          '@PlayLogic:scores',
+        );
+
+        if (storage) {
+          const parsedStorage = JSON.parse(storage);
+
+          setScore1(parsedStorage.score1);
+          setScore2(parsedStorage.score2);
+          setScore3(parsedStorage.score3);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    loadScores();
+  }, []);
 
   const onAuthStateChanged = useCallback((u) => {
     setUser(u);
@@ -38,17 +112,23 @@ const AuthProvider = ({ children }) => {
         score1,
         score2,
         score3,
+        handleScoreUpdate,
         initializing,
         setInitializing,
         login: async (email, password) => {
           try {
             const loggedUser = await auth().signInWithEmailAndPassword(email, password);
 
+            setUserID(loggedUser.user.uid);
+            await AsyncStorage.setItem(
+              '@PlayLogic:userid', loggedUser.user.uid,
+            );
+
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: 0,
-                score2: 0,
-                score3: 0,
+                score1: -1,
+                score2: -1,
+                score3: -1,
               })
                 .then();
             } else {
@@ -73,11 +153,16 @@ const AuthProvider = ({ children }) => {
             // Sign-in the user with the credential
             const loggedUser = await auth().signInWithCredential(googleCredential);
 
+            setUserID(loggedUser.user.uid);
+            await AsyncStorage.setItem(
+              '@PlayLogic:userid', loggedUser.user.uid,
+            );
+
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: 0,
-                score2: 0,
-                score3: 0,
+                score1: -1,
+                score2: -1,
+                score3: -1,
               })
                 .then();
             } else {
@@ -113,11 +198,16 @@ const AuthProvider = ({ children }) => {
             // Sign-in the user with the credential
             const loggedUser = auth().signInWithCredential(facebookCredential);
 
+            setUserID(loggedUser.user.uid);
+            await AsyncStorage.setItem(
+              '@PlayLogic:userid', loggedUser.user.uid,
+            );
+
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: 0,
-                score2: 0,
-                score3: 0,
+                score1: -1,
+                score2: -1,
+                score3: -1,
               })
                 .then();
             } else {
@@ -135,10 +225,15 @@ const AuthProvider = ({ children }) => {
           try {
             const loggedUser = await auth().createUserWithEmailAndPassword(email, password);
 
+            setUserID(loggedUser.user.uid);
+            await AsyncStorage.setItem(
+              '@PlayLogic:userid', loggedUser.user.uid,
+            );
+
             await firestore().collection('users').doc(loggedUser.user.uid).set({
-              score1: 0,
-              score2: 0,
-              score3: 0,
+              score1: -1,
+              score2: -1,
+              score3: -1,
             })
               .then();
           } catch (e) {
@@ -147,6 +242,9 @@ const AuthProvider = ({ children }) => {
         },
         logout: async () => {
           try {
+            await AsyncStorage.removeItem(
+              '@PlayLogic:scores',
+            );
             await auth().signOut();
           } catch (e) {
             console.log(e);

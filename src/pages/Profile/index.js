@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Orientation from 'react-native-orientation-locker';
 
 import { useNavigation } from '@react-navigation/native';
 import backArrow from '../../assets/backarrow.png';
@@ -25,9 +26,11 @@ const Profile = () => {
     { key: '3', star: -1 },
   ];
 
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const navigation = useNavigation();
+
+  Orientation.lockToPortrait();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +43,9 @@ const Profile = () => {
         </View>
         <Text style={styles.userName}>Nome do Usuário</Text>
         <View>
-          <Text style={styles.textOptions}>{ user ? 'Logout' : 'Login' }</Text>
+          <TouchableOpacity onPress={logout}>
+            <Text style={styles.textOptions}>{ user ? 'Logout' : 'Login' }</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.score}>

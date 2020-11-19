@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View, Text, TouchableOpacity, Image,
 } from 'react-native';
@@ -11,15 +11,33 @@ import LockedPadlock from '../../assets/lockedPadlock.png';
 import UnlockedPadlock from '../../assets/unlockedPadlock.png';
 
 const StageBox = ({ id, status }) => {
+  const [image, setImage] = useState(LockedPadlock);
+
+  useEffect(() => {
+    if (status === -1) {
+      setImage(LockedPadlock);
+    } else if (status === 0) {
+      setImage(UnlockedPadlock);
+    } else if (status > 0) {
+      setImage(Done);
+    }
+  }, [status]);
+
   const navigation = useNavigation();
+
+  const handleNavigation = useCallback(() => {
+    if (status !== -1) {
+      navigation.navigate(`Stage${id}`);
+    }
+  }, [id, navigation, status]);
 
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate(`Stage${id}`)}>
-        <View style={[styles.box, id % 2 == 0 ? { backgroundColor: '#FFE342' } : ' ']}>
+      <TouchableOpacity onPress={handleNavigation}>
+        <View style={[styles.box, id % 2 === 0 ? { backgroundColor: '#FFE342' } : ' ']}>
           <Text style={styles.text}>{id}</Text>
           <View style={styles.status}>
-            <Image source={status > 0 ? (status == 1 ? UnlockedPadlock : LockedPadlock) : Done} style={styles.image} />
+            <Image source={image} style={styles.image} />
           </View>
         </View>
       </TouchableOpacity>

@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Orientation from 'react-native-orientation-locker';
 
 import { useNavigation } from '@react-navigation/native';
-import ScreenOrientation, { PORTRAIT } from 'react-native-orientation-locker/ScreenOrientation';
 
 import logoImg from '../../assets/logo.png';
 import volumeOn from '../../assets/volumeON.png';
@@ -25,10 +25,10 @@ const Dashboard = () => {
   const setImage = () => {
     setImageVolume(!imageVolume);
   };
+  Orientation.lockToPortrait();
 
   return (
     <SafeAreaView>
-      <ScreenOrientation orientation={PORTRAIT} />
       <View style={styles.topArea}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Image source={iconUser} />
