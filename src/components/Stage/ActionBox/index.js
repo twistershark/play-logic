@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 
-import action from '../../assets/botoes/bt-action.png'; 
-import eat from '../../assets/botoes/bt-eat-2.png';
-import jump from '../../assets/botoes/bt-jump-1.png'; 
+import action from '../../../assets/botoes/bt-action.png'; 
+import eat from '../../../assets/botoes/bt-eat-2.png';
+import jump from '../../../assets/botoes/bt-jump-1.png'; 
 
 
 const ActionBox = () => {

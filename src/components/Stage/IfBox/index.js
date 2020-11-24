@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 
-import ifText from '../../assets/botoes/bt-if.png'; 
-import banana from '../../assets/botoes/bt-banana.png';
-import bananaPeel from '../../assets/botoes/bt-banana-peel.png';
+import ifText from '../../../assets/botoes/bt-if.png'; 
+import banana from '../../../assets/botoes/bt-banana.png';
+import bananaPeel from '../../../assets/botoes/bt-banana-peel.png';
 
 const IfBox = () => {
   const [image, setImage] = useState(ifText); 

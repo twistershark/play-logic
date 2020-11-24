@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, Image, FlatList } from 'react-native'
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EStyleSheet from 'react-native-extended-stylesheet'; 
 import { useNavigation } from '@react-navigation/native';
 
-import ActionBox from '../../components/ActionBox';
-import MoveBox from '../../components/MoveBox'; 
-import LoopBox from '../../components/LoopBox'; 
-import IfBox from '../../components/IfBox'; 
+import ActionBox from './ActionBox';
+import MoveBox from './MoveBox';
+import IfBox from './IfBox';
+import LoopBox from './LoopBox'; 
+import Main from './Main'; 
 
 import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
 import play from  '../../assets/play.png';
@@ -16,6 +17,7 @@ import reset from  '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
 
 const Stage = () => {
+
 
   const navigation = useNavigation(); 
   return (
@@ -42,6 +44,9 @@ const Stage = () => {
               <Image source = {reset}/>
             </TouchableOpacity>
           </View>
+          <View style = {{marginTop: 10, marginHorizontal: 5}}>
+            <Main/>
+          </View> 
       </View>
     </SafeAreaView>
   );
@@ -67,7 +72,8 @@ const styles = EStyleSheet.create({
   runOptions: {
     flexDirection: 'row',
     justifyContent: 'space-around', 
-  }
+  },
+
   
 })
 
