@@ -1,12 +1,20 @@
 import React from 'react'
-import { View, Text, ImageBackground } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import EStyleSheet from 'react-native-extended-stylesheet'; 
 
 import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
+import play from  '../../assets/play.png';
+import reset from  '../../assets/reset.png';
+import backArrow from '../../assets/backarrow.png';
+
+import { useNavigation } from '@react-navigation/native';
+
 
 const Stage = () => {
+
+  const navigation = useNavigation(); 
   return (
     <SafeAreaView style = {styles.container}> 
       <View>
@@ -16,8 +24,18 @@ const Stage = () => {
 
           </View>
       </View>
-      <View>
-          <Text>Área da main</Text>
+      <View style = {styles.section}>
+          <View style = { styles.runOptions}>
+            <TouchableOpacity onPress =  {() => {navigation.goBack()}}>
+              <Image source = {backArrow} style = {{width: 30, height: 30}}/>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source = {play}/>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source = {reset}/>
+            </TouchableOpacity>
+          </View>
       </View>
     </SafeAreaView>
   );
@@ -31,7 +49,15 @@ const styles = EStyleSheet.create({
     width: '29.3rem',
     height: '18.7rem',
     marginLeft: '0.8rem'
+  },
+  section: {
+    flex: 1,
+  },
+  runOptions: {
+    flexDirection: 'row',
+    justifyContent: 'space-around' 
   }
+  
 
 })
 
