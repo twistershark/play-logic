@@ -15,11 +15,11 @@ const ActionBox = () => {
     else 
       setImage(jump); 
   }
-  
+
   return (
     <View>
       <TouchableOpacity onPress={change}>
-        <Image />
+        <Image source = {image} />
       </TouchableOpacity> 
     </View>
   )

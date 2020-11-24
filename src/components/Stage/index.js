@@ -1,15 +1,20 @@
 import React from 'react'
 import { View, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
 import EStyleSheet from 'react-native-extended-stylesheet'; 
+import { useNavigation } from '@react-navigation/native';
+
+import ActionBox from '../../components/ActionBox';
 
 import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
 import play from  '../../assets/play.png';
 import reset from  '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
 
-import { useNavigation } from '@react-navigation/native';
+
+
+
 
 
 const Stage = () => {
@@ -20,8 +25,8 @@ const Stage = () => {
       <View>
           <ImageBackground source = {map} style = {styles.imgMap}>
           </ImageBackground>
-          <View>
-
+          <View style = {styles.instructionSection}>
+            <ActionBox/> 
           </View>
       </View>
       <View style = {styles.section}>
@@ -50,6 +55,11 @@ const styles = EStyleSheet.create({
     height: '18.7rem',
     marginLeft: '0.8rem'
   },
+  instructionSection: {
+    flexDirection: 'row', 
+    justifyContent: 'space-around',
+    marginTop: '0.8rem'
+  }, 
   section: {
     flex: 1,
   },
