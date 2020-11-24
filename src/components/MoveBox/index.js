@@ -11,7 +11,12 @@ const MoveBox = () => {
   const [image, setImage] = useState(move); 
 
   const change = () => {
- 
+    if(image === move || image === spinL)
+      setImage(up); 
+    else if(image === up)
+      setImage(spinR);
+    else 
+      setImage(spinL); 
   }
 
   return (

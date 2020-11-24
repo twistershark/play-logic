@@ -6,16 +6,12 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from '@react-navigation/native';
 
 import ActionBox from '../../components/ActionBox';
+import MoveBox from '../../components/MoveBox'; 
 
 import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
 import play from  '../../assets/play.png';
 import reset from  '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
-
-
-
-
-
 
 const Stage = () => {
 
@@ -27,6 +23,7 @@ const Stage = () => {
           </ImageBackground>
           <View style = {styles.instructionSection}>
             <ActionBox/> 
+            <MoveBox/> 
           </View>
       </View>
       <View style = {styles.section}>
@@ -65,10 +62,9 @@ const styles = EStyleSheet.create({
   },
   runOptions: {
     flexDirection: 'row',
-    justifyContent: 'space-around' 
+    justifyContent: 'space-around', 
   }
   
-
 })
 
 export default Stage;
