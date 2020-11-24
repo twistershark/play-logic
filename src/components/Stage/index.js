@@ -65,6 +65,7 @@ const styles = EStyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-around',
     marginTop: '0.8rem',
+    marginHorizontal: '1.8rem'
   }, 
   section: {
     flex: 1,
