@@ -7,7 +7,6 @@ import n2 from '../../assets/botoes/bt-number2.png';
 import n3 from '../../assets/botoes/bt-number3.png';
 import n4 from '../../assets/botoes/bt-number4.png';
 
-
 const LoopBox = () => {
   const [image, setImage] = useState(loop); 
 

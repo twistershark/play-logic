@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import ActionBox from '../../components/ActionBox';
 import MoveBox from '../../components/MoveBox'; 
+import LoopBox from '../../components/LoopBox'; 
+import IfBox from '../../components/IfBox'; 
 
 import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
 import play from  '../../assets/play.png';
@@ -24,6 +26,8 @@ const Stage = () => {
           <View style = {styles.instructionSection}>
             <ActionBox/> 
             <MoveBox/> 
+            <IfBox/>
+            <LoopBox/> 
           </View>
       </View>
       <View style = {styles.section}>
@@ -55,7 +59,7 @@ const styles = EStyleSheet.create({
   instructionSection: {
     flexDirection: 'row', 
     justifyContent: 'space-around',
-    marginTop: '0.8rem'
+    marginTop: '0.8rem',
   }, 
   section: {
     flex: 1,
