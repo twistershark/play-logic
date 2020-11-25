@@ -10,13 +10,17 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { useNavigation } from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
-// import { useAuth } from '../../hooks/auth';
+
+import { useAuth } from '../../hooks/auth';
 
 import backArrow from '../../assets/backarrow.png';
 
 import StageBox from '../../components/StageBox';
 
 const Stage = () => {
+  const { score1, score2, score3 } = useAuth();
+
+  Orientation.unlockAllOrientations();
   Orientation.lockToLandscape();
   const navigation = useNavigation();
 
@@ -27,8 +31,8 @@ const Stage = () => {
       </TouchableOpacity>
       <View style={styles.stages}>
         <StageBox id={1} status={0} />
-        <StageBox id={2} status={1} />
-        <StageBox id={3} status={2} />
+        <StageBox id={2} status={score2} />
+        <StageBox id={3} status={score3} />
       </View>
     </SafeAreaView>
 

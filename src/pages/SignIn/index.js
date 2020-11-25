@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Orientation from 'react-native-orientation-locker';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,6 +31,8 @@ const SignIn = () => {
   const navigation = useNavigation();
 
   const { login, googleLogin, facebookLogin } = useAuth();
+
+  Orientation.lockToPortrait();
 
   return (
     <KeyboardAvoidingView

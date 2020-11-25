@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import {
+  View, Text, TouchableOpacity, Image,
+} from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import { useAuth } from '../../hooks/auth';
 
-import Stage from '../../components/Stage'
-import { View } from 'react-native';
+import backArrow from '../../assets/backarrow.png';
 
 const Stage1 = () => {
-  const navigation = useNavigation();
+  const { handleScoreUpdate } = useAuth();
+  // const navigation = useNavigation();
+
+  const updateScore = useCallback(() => {
+    handleScoreUpdate(2, 3);
+  }, [handleScoreUpdate]);
   return (
     <View>
       <Stage/>   

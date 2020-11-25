@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from '@react-navigation/native';
+import Orientation from 'react-native-orientation-locker';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -28,6 +29,8 @@ const SignUp = () => {
   const navigation = useNavigation();
 
   const { register, googleLogin, facebookLogin } = useAuth();
+
+  Orientation.lockToPortrait();
 
   const handleSignUp = useCallback(() => {
     if (password === passwordConfirmation) {
