@@ -18,9 +18,9 @@ const Stage1 = () => {
   }, [handleScoreUpdate]);
   return (
     <View>
-      <Stage/>   
+      <Stage />
     </View>
-    
+
   );
 };
 
