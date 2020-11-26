@@ -4,12 +4,13 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:prettier/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
-        "__DEV__": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "__DEV__": "readonly"
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -20,23 +21,26 @@
     },
     "plugins": [
         "react",
-        "react-hooks"
+        "react-hooks",
+        "prettier"
     ],
     "rules": {
+      "prettier/prettier": "error",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
       "no-use-before-define": "off",
+      "import/prefer-default-export": "off",
+      "no-unused-expressions": "off",
       "jsx-props-no-spreading": "off",
       "react/prop-types": "off",
       "react/jsx-filename-extension": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "import/prefer-default-export": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
         {
-          "js": "never",
-          "jsx": "never"
-        }
+        "js": "never",
+        "jsx": "never"
+       }
       ]
     }
 }
