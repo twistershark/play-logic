@@ -27,6 +27,7 @@
     "jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "no-return-assign": "off",
+    "no-nested-ternary": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": "off",
     "react-hooks/rules-of-hooks": "error",
