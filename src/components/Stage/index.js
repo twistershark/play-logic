@@ -13,7 +13,7 @@ import IfBox from './IfBox';
 import LoopBox from './LoopBox';
 import Main from './Main';
 
-import map from '../../assets/mapas/Mapa_Ver3_semBorda.png';
+import map from '../../assets/mapas/mapa_completo.png';
 import play from '../../assets/play.png';
 import reset from '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
