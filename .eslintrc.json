@@ -1,46 +1,44 @@
 {
-    "env": {
-        "es6": true
-    },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:prettier/recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "__DEV__": "readonly"
-    },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "error",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "no-use-before-define": "off",
-      "import/prefer-default-export": "off",
-      "no-unused-expressions": "off",
-      "jsx-props-no-spreading": "off",
-      "react/prop-types": "off",
-      "react/jsx-filename-extension": "off",
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
+  "env": {
+      "es6": true
+  },
+  "extends": [
+      "plugin:react/recommended",
+      "airbnb"
+  ],
+  "globals": {
+      "Atomics": "readonly",
+      "__DEV__": "readonly",
+      "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+  },
+  "plugins": [
+      "react",
+      "react-hooks"
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "no-return-assign": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
         "js": "never",
         "jsx": "never"
-       }
-      ]
-    }
+      }
+    ]
+  }
 }
