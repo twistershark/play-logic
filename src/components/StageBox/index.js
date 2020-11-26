@@ -27,8 +27,7 @@ const StageBox = ({ id, status }) => {
 
   const handleNavigation = useCallback(() => {
     if (status !== -1) {
-      // navigation.navigate(`Stage${id}`);
-      navigation.navigate('TestAnimation');
+      navigation.navigate(`Stage${id}`);
     }
   }, [id, navigation, status]);
 
