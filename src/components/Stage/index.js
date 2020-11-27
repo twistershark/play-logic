@@ -1,19 +1,18 @@
 import React, { useState, useRef } from 'react';
 import {
   View,
-  Text, 
-  ImageBackground, 
-  TouchableOpacity, 
-  Image, 
+  ImageBackground,
+  TouchableOpacity,
+  Image,
   Animated,
   PanResponder,
-  Alert
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from '@react-navigation/native';
 
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import ActionBox from './ActionBox';
 import MoveBox from './MoveBox';
 import IfBox from './IfBox';
@@ -24,45 +23,43 @@ import map from '../../assets/mapas/mapa_completo.png';
 import play from '../../assets/play.png';
 import reset from '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const Stage = () => {
   const navigation = useNavigation();
   const pan = useRef(new Animated.ValueXY()).current;
-  const [instrunction, setInstrunction] = useState([]);
-  var array = [];
+  const [instruction, setInstruction] = useState([]);
+  const array = [];
 
-  const onArea = (x,y) => {
-    if(x > 460 && y > 30 && y < 180){
+  const onArea = (x, y) => {
+    if (x > 460 && y > 30 && y < 180) {
       array.push(1);
       console.log(array);
     }
     Animated.spring(pan, {
       toValue: { x: 0, y: 0 },
       friction: 5,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
-
-  }
+  };
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
         pan.setOffset({
           x: pan.x._value,
-          y: pan.y._value
+          y: pan.y._value,
         });
       },
       onPanResponderMove: Animated.event(
         [
           null,
           { dx: pan.x, dy: pan.y },
-        ],{useNativeDriver: false},
+        ], { useNativeDriver: false },
       ),
       onPanResponderRelease: (e, gesture) => {
-        onArea(gesture.moveX, gesture.moveY)
-      }
-    })
+        onArea(gesture.moveX, gesture.moveY);
+      },
+    }),
   ).current;
 
   return (
@@ -71,12 +68,12 @@ const Stage = () => {
         <ImageBackground source={map} style={styles.imgMap} />
         <View style={styles.instructionSection}>
           <Animated.View
-          style={{
-            transform: [{ translateX: pan.x }, { translateY: pan.y }]
-          }}
-          {...panResponder.panHandlers}
+            style={{
+              transform: [{ translateX: pan.x }, { translateY: pan.y }],
+            }}
+            {...panResponder.panHandlers}
           >
-          <ActionBox />
+            <ActionBox />
           </Animated.View>
           <MoveBox />
           <IfBox />
