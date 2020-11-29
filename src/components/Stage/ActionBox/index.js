@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Image,
@@ -6,6 +6,7 @@ import {
   PanResponder,
   Animated,
 } from 'react-native';
+import { useAction } from '../../../hooks/actions';
 
 import action from '../../../assets/botoes/bt-action.png';
 import eat from '../../../assets/botoes/bt-eat-2.png';
@@ -13,28 +14,32 @@ import jump from '../../../assets/botoes/bt-jump-1.png';
 
 const ActionBox = () => {
   const [image, setImage] = useState(action);
+  const [id, setId] = useState(-1);
+  const [x, setX] = useState(-1);
+  const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
+  const { handleAddToMain } = useAction();
 
   const change = () => {
     if (image === action) {
       setImage(eat);
+      setId(0);
     } else if (image === eat) {
       setImage(jump);
+      setId(1);
     } else {
       setImage(action);
+      setId(-1);
     }
   };
 
-  const onArea = (x, y) => {
+  useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      // atualizar o valor do array global;
+      if (id > -1) {
+        handleAddToMain(id, image);
+      }
     }
-    Animated.spring(pan, {
-      toValue: { x: 0, y: 0 },
-      friction: 5,
-      useNativeDriver: false,
-    }).start();
-  };
+  }, [x, y]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -52,7 +57,13 @@ const ActionBox = () => {
         ], { useNativeDriver: false },
       ),
       onPanResponderRelease: (e, gesture) => {
-        onArea(gesture.moveX, gesture.moveY);
+        setX(gesture.moveX);
+        setY(gesture.moveY);
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          friction: 5,
+          useNativeDriver: false,
+        }).start();
       },
     }),
   ).current;
