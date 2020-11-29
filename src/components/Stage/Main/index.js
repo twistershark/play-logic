@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, FlatList, StyleSheet, Image,
+  View, Text, FlatList, Image, Dimensions,
 } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -11,23 +11,27 @@ const MainList = () => {
     { key: 5, value: 0 }, { key: 6, value: 0 }, { key: 7, value: 0 }, { key: 8, value: 0 }];
 
   return (
-    <View>
+    <View style={{ height: Dimensions.get('window').height / 3 }}>
       <Text style={styles.title}>MAIN</Text>
-      <FlatList
-        style={styles.list}
-        data={data}
-        numColumns={4}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image source={null} />
-          </View>
-        )}
-      />
+      <View style={styles.list}>
+        <FlatList
+          data={data}
+          numColumns={4}
+          keyExtractor={(item, index) => item.key + index}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Image style={{ width: '100%', height: '100%' }} source={null} />
+            </View>
+          )}
+        />
+      </View>
+
     </View>
   );
 };
 
 const styles = EStyleSheet.create({
+
   title: {
     color: 'white',
     fontWeight: 'bold',
@@ -37,12 +41,13 @@ const styles = EStyleSheet.create({
     borderColor: '#592C15',
     borderWidth: 3,
   },
+
   item: {
-    width: 50,
-    height: 50,
+    aspectRatio: 1,
     borderRadius: 10,
     backgroundColor: '#FFE342',
     margin: '0.25rem',
+    flex: 1 / 4,
   },
 });
 export default MainList;
