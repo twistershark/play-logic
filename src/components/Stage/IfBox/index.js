@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Image,
@@ -7,6 +7,7 @@ import {
   Animated,
   Alert,
 } from 'react-native';
+import { useAction } from '../../../hooks/actions';
 
 import ifText from '../../../assets/botoes/bt-if.png';
 import banana from '../../../assets/botoes/bt-banana.png';
@@ -15,26 +16,33 @@ import bananaPeel from '../../../assets/botoes/bt-banana-peel.png';
 const IfBox = () => {
   const [image, setImage] = useState(ifText);
   const [id, setId] = useState(-1);
+  const [x, setX] = useState(-1);
+  const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
+  const { handleAddToMain } = useAction();
 
+  // ID das imagens é a continuação dos id's do moveBox;
   const change = () => {
     if (image === ifText) {
       setImage(banana);
+      setId(6);
     } else if (image === banana) {
       setImage(bananaPeel);
-    } else setImage(ifText);
+      setId(7);
+    } else {
+      setImage(ifText);
+      setId(-1);
+    }
   };
 
-  const onArea = (x, y) => {
+  useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      Alert.alert('Chegou');
+      if (id > -1) {
+        alert('sim');
+        handleAddToMain(id, image);
+      }
     }
-    Animated.spring(pan, {
-      toValue: { x: 0, y: 0 },
-      friction: 5,
-      useNativeDriver: false,
-    }).start();
-  };
+  }, [x, y]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -52,7 +60,13 @@ const IfBox = () => {
         ], { useNativeDriver: false },
       ),
       onPanResponderRelease: (e, gesture) => {
-        onArea(gesture.moveX, gesture.moveY);
+        setX(gesture.moveX);
+        setY(gesture.moveY);
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          friction: 5,
+          useNativeDriver: false,
+        }).start();
       },
     }),
   ).current;
