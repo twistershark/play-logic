@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Image,
@@ -6,6 +6,7 @@ import {
   PanResponder,
   Animated,
 } from 'react-native';
+import { useAction } from '../../../hooks/actions';
 
 import loop from '../../../assets/botoes/bt-loop.png';
 import n1 from '../../../assets/botoes/bt-number1.png';
@@ -15,32 +16,37 @@ import n4 from '../../../assets/botoes/bt-number4.png';
 
 const LoopBox = () => {
   const [image, setImage] = useState(loop);
+  const [id, setId] = useState(-1);
+  const [x, setX] = useState();
+  const [y, setY] = useState();
   const pan = useRef(new Animated.ValueXY()).current;
-
+  const { handleAddToMain } = useAction();
   const change = () => {
     if (image === loop) {
       setImage(n1);
+      setId(8);
     } else if (image === n1) {
       setImage(n2);
+      setId(9);
     } else if (image === n2) {
       setImage(n3);
+      setId(10);
     } else if (image === n3) {
       setImage(n4);
+      setId(11);
     } else {
       setImage(loop);
+      setId(-1);
     }
   };
 
-  const onArea = (x, y) => {
+  useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      // atualizar o valor do array global;
+      if (id > -1) {
+        handleAddToMain(id, image);
+      }
     }
-    Animated.spring(pan, {
-      toValue: { x: 0, y: 0 },
-      friction: 5,
-      useNativeDriver: false,
-    }).start();
-  };
+  }, [x, y]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -58,7 +64,13 @@ const LoopBox = () => {
         ], { useNativeDriver: false },
       ),
       onPanResponderRelease: (e, gesture) => {
-        onArea(gesture.moveX, gesture.moveY);
+        setX(gesture.moveX);
+        setY(gesture.moveY);
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          friction: 5,
+          useNativeDriver: false,
+        }).start();
       },
     }),
   ).current;
