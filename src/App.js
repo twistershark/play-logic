@@ -8,6 +8,7 @@ import { StatusBar } from 'react-native';
 import Routes from './routes';
 
 import { AuthProvider } from './hooks/auth';
+import { ActionProvider } from './hooks/actions';
 
 const App = () => {
   EStyleSheet.build();
@@ -16,7 +17,9 @@ const App = () => {
     <NavigationContainer>
       <StatusBar barStyle="dark-content" backgroundColor="#538900" translucent />
       <AuthProvider>
-        <Routes />
+        <ActionProvider>
+          <Routes />
+        </ActionProvider>
       </AuthProvider>
     </NavigationContainer>
   );
