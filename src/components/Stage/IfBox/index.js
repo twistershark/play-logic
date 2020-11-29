@@ -38,7 +38,6 @@ const IfBox = () => {
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
       if (id > -1) {
-        alert('sim');
         handleAddToMain(id, image);
       }
     }

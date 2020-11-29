@@ -24,16 +24,16 @@ const LoopBox = () => {
   const change = () => {
     if (image === loop) {
       setImage(n1);
-      setId(9);
+      setId(8);
     } else if (image === n1) {
       setImage(n2);
-      setId(10);
+      setId(9);
     } else if (image === n2) {
       setImage(n3);
-      setId(11);
+      setId(10);
     } else if (image === n3) {
       setImage(n4);
-      setId(12);
+      setId(11);
     } else {
       setImage(loop);
       setId(-1);
@@ -43,7 +43,6 @@ const LoopBox = () => {
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
       if (id > -1) {
-        alert('Muito bem');
         handleAddToMain(id, image);
       }
     }
