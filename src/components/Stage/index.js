@@ -1,11 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ImageBackground,
   TouchableOpacity,
   Image,
-  Animated,
-  PanResponder,
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -25,55 +23,15 @@ import backArrow from '../../assets/backarrow.png';
 
 const Stage = () => {
   const navigation = useNavigation();
-  const pan = useRef(new Animated.ValueXY()).current;
   const [instruction, setInstruction] = useState([]);
   const array = [];
-
-  const onArea = (x, y) => {
-    if (x > 460 && y > 30 && y < 180) {
-      array.push(1);
-      console.log(array);
-    }
-    Animated.spring(pan, {
-      toValue: { x: 0, y: 0 },
-      friction: 5,
-      useNativeDriver: false,
-    }).start();
-  };
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        pan.setOffset({
-          x: pan.x._value,
-          y: pan.y._value,
-        });
-      },
-      onPanResponderMove: Animated.event(
-        [
-          null,
-          { dx: pan.x, dy: pan.y },
-        ], { useNativeDriver: false },
-      ),
-      onPanResponderRelease: (e, gesture) => {
-        onArea(gesture.moveX, gesture.moveY);
-      },
-    }),
-  ).current;
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <ImageBackground source={map} style={styles.imgMap} />
         <View style={styles.instructionSection}>
-          <Animated.View
-            style={{
-              transform: [{ translateX: pan.x }, { translateY: pan.y }],
-            }}
-            {...panResponder.panHandlers}
-          >
-            <ActionBox />
-          </Animated.View>
+          <ActionBox />
           <MoveBox />
           <IfBox />
           <LoopBox />
