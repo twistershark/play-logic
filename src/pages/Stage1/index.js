@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  View, Text, TouchableOpacity, Image,
-} from 'react-native';
+import { View } from 'react-native';
 
-import EStyleSheet from 'react-native-extended-stylesheet';
 import SpriteSheet from 'rn-sprite-sheet';
 import Stage from '../../components/Stage';
 import { useAuth } from '../../hooks/auth';

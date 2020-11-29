@@ -12,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from '@react-navigation/native';
 
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import ActionBox from './ActionBox';
 import MoveBox from './MoveBox';
 import IfBox from './IfBox';
