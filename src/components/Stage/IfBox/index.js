@@ -15,30 +15,30 @@ import bananaPeel from '../../../assets/botoes/bt-banana-peel.png';
 
 const IfBox = () => {
   const [image, setImage] = useState(ifText);
-  const [id, setId] = useState(-1);
+  const [actionName, setActionName] = useState(' ');
   const [x, setX] = useState(-1);
   const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
   const { handleAddToMain } = useAction();
 
-  // ID das imagens é a continuação dos id's do moveBox;
   const change = () => {
     if (image === ifText) {
       setImage(banana);
-      setId(6);
+      setActionName('banana');
     } else if (image === banana) {
       setImage(bananaPeel);
-      setId(7);
+      setActionName('bananaPeel');
     } else {
       setImage(ifText);
-      setId(-1);
+      setActionName(' ');
     }
   };
 
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      if (id > -1) {
-        handleAddToMain(id, image);
+      if (actionName !== ' ') {
+        handleAddToMain(actionName, image);
+        console.log(actionName);
       }
     }
   }, [x, y]);
