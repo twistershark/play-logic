@@ -9,7 +9,6 @@ import React, {
 export const ActionContext = createContext();
 
 const ActionProvider = ({ children }) => {
-  const [mainVisual, setMainVisual] = useState([]);
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
   const [conditional, setConditional] = useState([]);
@@ -20,7 +19,6 @@ const ActionProvider = ({ children }) => {
   // Quando o usuário entrar na fase, tudo vai estar zerado
 
   useEffect(() => {
-    setMainVisual([]);
     setMain([]);
     setLoop([]);
     setConditional([]);
@@ -34,7 +32,6 @@ const ActionProvider = ({ children }) => {
       setId(id + 1);
 
       setMain(updatedMain);
-      setMainVisual(updatedMain);
       setCounter(counter + 1);
     } else {
       setMain((prevState) => ([...prevState, { id, action, image }]));
@@ -80,7 +77,6 @@ const ActionProvider = ({ children }) => {
   // Reseta todos os arrays de ações
   const handleReset = useCallback(() => {
     setMain([]);
-    setMainVisual([]);
     setLoop([]);
     setConditional([]);
     setCounter(0);
@@ -103,8 +99,6 @@ const ActionProvider = ({ children }) => {
         setStart,
         handleShiftMain,
         setMain,
-        setMainVisual,
-        mainVisual,
       }}
     >
       {children}

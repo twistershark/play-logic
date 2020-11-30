@@ -8,7 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAction } from '../../../hooks/actions';
 
 const MainList = () => {
-  const { mainVisual } = useAction();
+  const { main } = useAction();
 
   const nullData = [
     { id: 0, action: 'undefined', image: null },
@@ -26,7 +26,7 @@ const MainList = () => {
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
-          data={mainVisual.length ? mainVisual : nullData}
+          data={main.length ? main : nullData}
           numColumns={4}
           keyExtractor={(item, index) => item.id + index}
           renderItem={({ item }) => (
