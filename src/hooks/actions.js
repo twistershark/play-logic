@@ -8,33 +8,59 @@ import React, {
 
 export const ActionContext = createContext();
 
+const nullData = [
+  { id: 0, image: undefined },
+  { id: 1, image: undefined },
+  { id: 2, image: undefined },
+  { id: 3, image: undefined },
+  { id: 4, image: undefined },
+  { id: 5, image: undefined },
+  { id: 6, image: undefined },
+  { id: 7, image: undefined },
+];
+
 const ActionProvider = ({ children }) => {
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
   const [conditional, setConditional] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [id, setId] = useState(0);
 
   // Quando o usuário entrar na fase, tudo vai estar zerado
 
   useEffect(() => {
-    setMain([]);
+    setMain(nullData);
     setLoop([]);
     setConditional([]);
+    setCounter(0);
+    setId(0);
   }, []);
 
   // Recebe o ID e a image da ação e adiciona no array das ações main
-  const handleAddToMain = useCallback((id, image) => {
-    setMain((prevState) => ([...prevState, { id, image }]));
-  }, []);
+  const handleAddToMain = useCallback((action, image) => {
+    if (counter < 8) {
+      const updatedMain = main;
+      updatedMain[counter] = { id, action, image };
+      setId(id + 1);
+
+      setMain(updatedMain);
+      setCounter(counter + 1);
+    } else {
+      setMain((prevState) => ([...prevState, { id, action, image }]));
+    }
+  }, [counter, main, id]);
 
   // Recebe o ID e a image da ação e adiciona no array das ações loop
-  const handleAddToLoop = useCallback((id, image) => {
-    setLoop((prevState) => ([...prevState, { id, image }]));
-  }, []);
+  const handleAddToLoop = useCallback((action, image) => {
+    setLoop((prevState) => ([...prevState, { id, action, image }]));
+    setId(id + 1);
+  }, [id]);
 
   // Recebe o ID e a image da ação e adiciona no array das ações conditional
-  const handleAddToConditional = useCallback((id, image) => {
-    setConditional((prevState) => ([...prevState, { id, image }]));
-  }, []);
+  const handleAddToConditional = useCallback((action, image) => {
+    setConditional((prevState) => ([...prevState, { id, action, image }]));
+    setId(id + 1);
+  }, [id]);
 
   // Adiciona as ações do loop na main TIMES vezes
 
@@ -52,9 +78,11 @@ const ActionProvider = ({ children }) => {
 
   // Reseta todos os arrays de ações
   const handleReset = useCallback(() => {
-    setMain([]);
+    setMain(nullData);
     setLoop([]);
     setConditional([]);
+    setCounter(0);
+    setId(0);
   }, []);
 
   return (

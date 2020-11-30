@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   ImageBackground,
@@ -21,10 +21,22 @@ import play from '../../assets/play.png';
 import reset from '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
 
+import { useAction } from '../../hooks/actions';
+
 const Stage = () => {
   const navigation = useNavigation();
   const [instruction, setInstruction] = useState([]);
   const array = [];
+  const { handleReset } = useAction();
+
+  const handleGoBack = useCallback(() => {
+    handleReset();
+    navigation.goBack();
+  }, [navigation, handleReset]);
+
+  const handleGameReset = useCallback(() => {
+    handleReset();
+  }, [handleReset]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,13 +51,13 @@ const Stage = () => {
       </View>
       <View style={styles.section}>
         <View style={styles.runOptions}>
-          <TouchableOpacity onPress={() => { navigation.goBack(); }}>
+          <TouchableOpacity onPress={handleGoBack}>
             <Image source={backArrow} style={{ width: 30, height: 30 }} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image source={play} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleGameReset}>
             <Image source={reset} />
           </TouchableOpacity>
         </View>

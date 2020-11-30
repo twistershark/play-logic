@@ -5,22 +5,22 @@ import {
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+import { useAction } from '../../../hooks/actions';
+
 const MainList = () => {
-  const data = [
-    { key: 1, value: 0 }, { key: 2, value: 0 }, { key: 3, value: 0 }, { key: 4, value: 0 },
-    { key: 5, value: 0 }, { key: 6, value: 0 }, { key: 7, value: 0 }, { key: 8, value: 0 }];
+  const { main } = useAction();
 
   return (
-    <View style={{ height: Dimensions.get('window').height / 3 }}>
+    <View style={{ height: 100 }}>
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
-          data={data}
+          data={main}
           numColumns={4}
-          keyExtractor={(item, index) => item.key + index}
+          keyExtractor={(item, index) => item.id + index}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <Image style={{ width: '100%', height: '100%' }} source={null} />
+              <Image style={{ width: '100%', height: '100%' }} source={item.image} />
             </View>
           )}
         />
