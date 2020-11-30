@@ -9,15 +9,18 @@ import React, {
 export const ActionContext = createContext();
 
 const ActionProvider = ({ children }) => {
+  const [mainVisual, setMainVisual] = useState([]);
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
   const [conditional, setConditional] = useState([]);
   const [counter, setCounter] = useState(0);
   const [id, setId] = useState(0);
+  const [start, setStart] = useState(false);
 
   // Quando o usuário entrar na fase, tudo vai estar zerado
 
   useEffect(() => {
+    setMainVisual([]);
     setMain([]);
     setLoop([]);
     setConditional([]);
@@ -31,6 +34,7 @@ const ActionProvider = ({ children }) => {
       setId(id + 1);
 
       setMain(updatedMain);
+      setMainVisual(updatedMain);
       setCounter(counter + 1);
     } else {
       setMain((prevState) => ([...prevState, { id, action, image }]));
@@ -39,15 +43,19 @@ const ActionProvider = ({ children }) => {
 
   // Recebe o ID e a image da ação e adiciona no array das ações loop
   const handleAddToLoop = useCallback((action, image) => {
-    setLoop((prevState) => ([...prevState, { id, action, image }]));
-    setId(id + 1);
-  }, [id]);
+    if (loop.length < 4) {
+      setLoop((prevState) => ([...prevState, { id, action, image }]));
+      setId(id + 1);
+    }
+  }, [id, loop]);
 
   // Recebe o ID e a image da ação e adiciona no array das ações conditional
   const handleAddToConditional = useCallback((action, image) => {
-    setConditional((prevState) => ([...prevState, { id, action, image }]));
-    setId(id + 1);
-  }, [id]);
+    if (conditional.length < 4) {
+      setConditional((prevState) => ([...prevState, { id, action, image }]));
+      setId(id + 1);
+    }
+  }, [id, conditional]);
 
   // Adiciona as ações do loop na main TIMES vezes
 
@@ -63,9 +71,16 @@ const ActionProvider = ({ children }) => {
     setMain((prevState) => ([...prevState, ...conditional]));
   }, [conditional]);
 
+  const handleShiftMain = useCallback(() => {
+    const updatedMain = main;
+    updatedMain.shift();
+    setMain(updatedMain);
+  }, [main]);
+
   // Reseta todos os arrays de ações
   const handleReset = useCallback(() => {
     setMain([]);
+    setMainVisual([]);
     setLoop([]);
     setConditional([]);
     setCounter(0);
@@ -84,6 +99,12 @@ const ActionProvider = ({ children }) => {
         handleAddLoopToMain,
         handleAddConditionalToMain,
         handleReset,
+        start,
+        setStart,
+        handleShiftMain,
+        setMain,
+        setMainVisual,
+        mainVisual,
       }}
     >
       {children}

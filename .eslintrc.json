@@ -27,6 +27,7 @@
     "jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "no-return-assign": "off",
+    "no-loop-func": "off",
     "no-nested-ternary": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": "off",

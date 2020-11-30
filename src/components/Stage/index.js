@@ -26,7 +26,7 @@ import { useAction } from '../../hooks/actions';
 
 const Stage = () => {
   const navigation = useNavigation();
-  const { handleReset } = useAction();
+  const { handleReset, setStart, start } = useAction();
 
   const handleGoBack = useCallback(() => {
     handleReset();
@@ -53,7 +53,7 @@ const Stage = () => {
           <TouchableOpacity onPress={handleGoBack}>
             <Image source={backArrow} style={{ width: 30, height: 30 }} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setStart(!start)}>
             <Image source={play} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleGameReset}>
@@ -74,8 +74,8 @@ const styles = EStyleSheet.create({
     flexDirection: 'row',
   },
   imgMap: {
-    width: '29.3rem',
-    height: '18.7rem',
+    width: '30rem',
+    height: '19rem',
     marginLeft: '0.8rem',
   },
   instructionSection: {
