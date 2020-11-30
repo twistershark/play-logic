@@ -16,7 +16,7 @@ import right from '../../../assets/botoes/bt-right.png';
 
 const MoveBox = () => {
   const [image, setImage] = useState(move);
-  const [id, setId] = useState(-1);
+  const [actionName, setActionName] = useState(' ');
   const [x, setX] = useState(-1);
   const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
@@ -25,26 +25,26 @@ const MoveBox = () => {
   const change = () => {
     if (image === move) {
       setImage(up);
-      setId(2);
+      setActionName('up');
     } else if (image === up) {
       setImage(right);
-      setId(3);
+      setActionName('right');
     } else if (image === right) {
       setImage(left);
-      setId(4);
+      setActionName('left');
     } else if (image === left) {
       setImage(down);
-      setId(5);
+      setActionName('down');
     } else {
       setImage(move);
-      setId(-1);
+      setActionName(' ');
     }
   };
 
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      if (id > -1) {
-        handleAddToMain(id, image);
+      if (actionName !== ' ') {
+        handleAddToMain(actionName, image);
       }
     }
   }, [x, y]);

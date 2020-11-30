@@ -11,7 +11,7 @@ const MainList = () => {
   const { main } = useAction();
 
   return (
-    <View style={{ height: 100 }}>
+    <View style={{ height: 140 }}>
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
