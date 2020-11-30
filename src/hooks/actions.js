@@ -8,17 +8,6 @@ import React, {
 
 export const ActionContext = createContext();
 
-const nullData = [
-  { id: 0, image: undefined },
-  { id: 1, image: undefined },
-  { id: 2, image: undefined },
-  { id: 3, image: undefined },
-  { id: 4, image: undefined },
-  { id: 5, image: undefined },
-  { id: 6, image: undefined },
-  { id: 7, image: undefined },
-];
-
 const ActionProvider = ({ children }) => {
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
@@ -29,11 +18,9 @@ const ActionProvider = ({ children }) => {
   // Quando o usuário entrar na fase, tudo vai estar zerado
 
   useEffect(() => {
-    setMain(nullData);
+    setMain([]);
     setLoop([]);
     setConditional([]);
-    setCounter(0);
-    setId(0);
   }, []);
 
   // Recebe o ID e a image da ação e adiciona no array das ações main
@@ -78,7 +65,7 @@ const ActionProvider = ({ children }) => {
 
   // Reseta todos os arrays de ações
   const handleReset = useCallback(() => {
-    setMain(nullData);
+    setMain([]);
     setLoop([]);
     setConditional([]);
     setCounter(0);
