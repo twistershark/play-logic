@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   ImageBackground,
@@ -15,6 +15,7 @@ import MoveBox from './MoveBox';
 import IfBox from './IfBox';
 import LoopBox from './LoopBox';
 import Main from './Main';
+import Loop from './Loop';
 
 import map from '../../assets/mapas/mapa_completo.png';
 import play from '../../assets/play.png';
@@ -59,8 +60,10 @@ const Stage = () => {
             <Image source={reset} />
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 10, marginHorizontal: 5 }}>
+        <View style={styles.runSection}>
           <Main />
+          <Loop />
+          <Loop />
         </View>
       </View>
     </SafeAreaView>
@@ -88,6 +91,12 @@ const styles = EStyleSheet.create({
   runOptions: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  runSection: {
+    flex: 1,
+    justifyContent: 'space-around',
+    marginTop: 10,
+    marginHorizontal: 5,
   },
 
 });
