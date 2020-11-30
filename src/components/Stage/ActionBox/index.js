@@ -34,11 +34,9 @@ const ActionBox = () => {
   };
 
   useEffect(() => {
-    if (x > 460) {
+    if (x > 460 && actionName !== ' ') {
       if (y > 30 && y < 150) {
-        if (actionName !== ' ') {
-          handleAddToMain(actionName, image);
-        }
+        handleAddToMain(actionName, image);
       } else if (y > 150 && y < 210 && actionName) {
         handleAddToLoop(actionName, image);
       }
