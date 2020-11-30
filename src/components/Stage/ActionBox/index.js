@@ -14,7 +14,7 @@ import jump from '../../../assets/botoes/bt-jump-1.png';
 
 const ActionBox = () => {
   const [image, setImage] = useState(action);
-  const [id, setId] = useState(-1);
+  const [actionName, setActionName] = useState(' ');
   const [x, setX] = useState(-1);
   const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
@@ -23,20 +23,20 @@ const ActionBox = () => {
   const change = () => {
     if (image === action) {
       setImage(eat);
-      setId(0);
+      setActionName('eat');
     } else if (image === eat) {
       setImage(jump);
-      setId(1);
+      setActionName('jump');
     } else {
       setImage(action);
-      setId(-1);
+      setActionName(' ');
     }
   };
 
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
-      if (id > -1) {
-        handleAddToMain(id, image);
+      if (actionName !== ' ') {
+        handleAddToMain(actionName, image);
       }
     }
   }, [x, y]);
