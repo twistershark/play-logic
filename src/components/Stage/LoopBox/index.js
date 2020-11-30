@@ -20,7 +20,7 @@ const LoopBox = () => {
   const [x, setX] = useState();
   const [y, setY] = useState();
   const pan = useRef(new Animated.ValueXY()).current;
-  const { handleAddToMain, loop } = useAction();
+  const { handleAddLoopToMain } = useAction();
   const change = () => {
     if (image === loopText) {
       setImage(n1);
@@ -43,7 +43,9 @@ const LoopBox = () => {
   useEffect(() => {
     if (x > 460 && y > 30 && y < 180) {
       if (actionName !== ' ') {
-        handleAddToMain(actionName, image);
+        for (let i = 0; i < Number(actionName); i++) {
+          handleAddLoopToMain();
+        }
       }
     }
   }, [x, y]);
