@@ -43,7 +43,8 @@ const MainList = () => {
 
 const styles = EStyleSheet.create({
   container: {
-    height: '10.25rem',
+    height: '3.2rem',
+    marginBottom: '2rem',
   },
   title: {
     color: 'white',

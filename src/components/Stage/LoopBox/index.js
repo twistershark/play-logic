@@ -41,7 +41,7 @@ const LoopBox = () => {
   };
 
   useEffect(() => {
-    if (x > 460 && y > 30 && y < 180) {
+    if (x > 460 && y > 30 && y < 150) {
       if (actionName !== ' ') {
         for (let i = 0; i < Number(actionName); i++) {
           handleAddLoopToMain();

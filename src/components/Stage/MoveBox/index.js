@@ -43,11 +43,11 @@ const MoveBox = () => {
 
   useEffect(() => {
     if (x > 460) {
-      if (y > 30 && y < 180) {
+      if (y > 30 && y < 150) {
         if (actionName !== ' ') {
           handleAddToMain(actionName, image);
         }
-      } else if (y > 300 && y < 400 && actionName) {
+      } else if (y > 150 && y < 210 && actionName) {
         handleAddToLoop(actionName, image);
       }
     }

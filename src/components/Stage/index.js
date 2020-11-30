@@ -64,6 +64,7 @@ const Stage = () => {
           <Main />
           <Loop />
         </View>
+
       </View>
     </SafeAreaView>
   );
@@ -93,8 +94,7 @@ const styles = EStyleSheet.create({
   },
   runSection: {
     flex: 1,
-    justifyContent: 'space-around',
-    marginTop: -5,
+    marginTop: 10,
     marginHorizontal: 5,
   },
 
