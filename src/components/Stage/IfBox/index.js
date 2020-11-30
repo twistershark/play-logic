@@ -38,7 +38,6 @@ const IfBox = () => {
     if (x > 460 && y > 30 && y < 180) {
       if (actionName !== ' ') {
         handleAddToMain(actionName, image);
-        console.log(actionName);
       }
     }
   }, [x, y]);

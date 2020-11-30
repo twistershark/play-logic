@@ -25,8 +25,6 @@ import { useAction } from '../../hooks/actions';
 
 const Stage = () => {
   const navigation = useNavigation();
-  const [instruction, setInstruction] = useState([]);
-  const array = [];
   const { handleReset } = useAction();
 
   const handleGoBack = useCallback(() => {
