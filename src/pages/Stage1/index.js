@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import SpriteSheet from 'rn-sprite-sheet';
+import Orientation from 'react-native-orientation-locker';
 import Stage from '../../components/Stage';
 import { useAuth } from '../../hooks/auth';
 
@@ -12,6 +13,7 @@ import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png
 const Stage1 = () => {
   const { handleScoreUpdate } = useAuth();
   // const navigation = useNavigation();
+  Orientation.lockToLandscape();
 
   const updateScore = useCallback(() => {
     handleScoreUpdate(2, 3);

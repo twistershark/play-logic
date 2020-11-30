@@ -25,6 +25,7 @@ const Dashboard = () => {
   const setImage = () => {
     setImageVolume(!imageVolume);
   };
+
   Orientation.lockToPortrait();
 
   return (

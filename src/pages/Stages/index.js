@@ -20,13 +20,17 @@ import StageBox from '../../components/StageBox';
 const Stage = () => {
   const { score1, score2, score3 } = useAuth();
 
-  Orientation.unlockAllOrientations();
   Orientation.lockToLandscape();
+
+  const back = () => {
+    navigation.goBack();
+    Orientation.lockToPortrait();
+  };
   const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.backNavigation} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.backNavigation} onPress={(back)}>
         <Image source={backArrow} />
       </TouchableOpacity>
       <View style={styles.stages}>

@@ -5,13 +5,13 @@ import Dashboard from '../pages/Dashboard';
 
 import Profile from '../pages/Profile';
 
-import Stages from '../pages/Stages'
+import Stages from '../pages/Stages';
 
-import Stage1 from '../pages/Stage1'
+import Stage1 from '../pages/Stage1';
 
-import Stage2 from '../pages/Stage2'
+import Stage2 from '../pages/Stage2';
 
-import Stage3 from '../pages/Stage3'
+import Stage3 from '../pages/Stage3';
 
 const App = createStackNavigator();
 
