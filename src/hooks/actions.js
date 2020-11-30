@@ -11,7 +11,6 @@ export const ActionContext = createContext();
 const ActionProvider = ({ children }) => {
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
-  const [conditional, setConditional] = useState([]);
   const [counter, setCounter] = useState(0);
   const [id, setId] = useState(0);
   const [start, setStart] = useState(false);
@@ -21,7 +20,6 @@ const ActionProvider = ({ children }) => {
   useEffect(() => {
     setMain([]);
     setLoop([]);
-    setConditional([]);
   }, []);
 
   // Recebe o ID e a image da ação e adiciona no array das ações main
@@ -41,32 +39,31 @@ const ActionProvider = ({ children }) => {
   // Recebe o ID e a image da ação e adiciona no array das ações loop
   const handleAddToLoop = useCallback((action, image) => {
     if (loop.length < 4) {
-      setLoop((prevState) => ([...prevState, { id, action, image }]));
+      const updatedLoop = loop;
+      loop.push({
+        id,
+        action,
+        image,
+      });
+      setLoop(updatedLoop);
       setId(id + 1);
     }
   }, [id, loop]);
 
-  // Recebe o ID e a image da ação e adiciona no array das ações conditional
-  const handleAddToConditional = useCallback((action, image) => {
-    if (conditional.length < 4) {
-      setConditional((prevState) => ([...prevState, { id, action, image }]));
-      setId(id + 1);
-    }
-  }, [id, conditional]);
-
   // Adiciona as ações do loop na main TIMES vezes
 
-  const handleAddLoopToMain = useCallback((times) => {
-    for (let i = 1; i <= times; i + 1) {
-      setMain((prevState) => ([...prevState, ...loop]));
-    }
-  }, [loop]);
+  const handleAddLoopToMain = useCallback(() => {
+    const loopActions = loop.map((loop) => {
+      setId(id + 1);
+      return ({
+        id: id - 1,
+        action: loop.action,
+        image: loop.image,
+      });
+    });
 
-  // Adiciona as ações do conditional na main.
-
-  const handleAddConditionalToMain = useCallback(() => {
-    setMain((prevState) => ([...prevState, ...conditional]));
-  }, [conditional]);
+    setMain((prevState) => ([...prevState, ...loopActions]));
+  }, [loop, id]);
 
   const handleShiftMain = useCallback(() => {
     const updatedMain = main;
@@ -78,7 +75,6 @@ const ActionProvider = ({ children }) => {
   const handleReset = useCallback(() => {
     setMain([]);
     setLoop([]);
-    setConditional([]);
     setCounter(0);
     setId(0);
   }, []);
@@ -88,12 +84,9 @@ const ActionProvider = ({ children }) => {
       value={{
         main,
         loop,
-        conditional,
         handleAddToMain,
         handleAddToLoop,
-        handleAddToConditional,
         handleAddLoopToMain,
-        handleAddConditionalToMain,
         handleReset,
         start,
         setStart,
