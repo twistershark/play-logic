@@ -1,46 +1,82 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useEffect, useRef,
+} from 'react';
 import { View } from 'react-native';
 
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 import Stage from '../../components/Stage';
-import { useAuth } from '../../hooks/auth';
-
-import backArrow from '../../assets/backarrow.png';
+// import { useAuth } from '../../hooks/auth';
+import { useAction } from '../../hooks/actions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
 
 const Stage1 = () => {
-  const { handleScoreUpdate } = useAuth();
-  // const navigation = useNavigation();
   Orientation.lockToLandscape();
 
-  const updateScore = useCallback(() => {
-    handleScoreUpdate(2, 3);
-  }, [handleScoreUpdate]);
-
   let monkey;
+  const xRef = useRef(70);
+  const yRef = useRef(228);
+  const {
+    main, start, setStart, setMain,
+  } = useAction();
+  // const { handleScoreUpdate } = useAuth();
 
-  const [x, setX] = useState(97);
+  // const updateScore = useCallback(() => {
+  //   handleScoreUpdate(2, 3);
+  // }, [handleScoreUpdate]);
 
+  useEffect(() => {
+    if (start) {
+      setTimeout(() => {
+        if (main.length > 0) {
+          const currentAction = main.shift();
+          switch (currentAction.action) {
+            case 'right':
+              if (xRef.current + 32 <= 390) {
+                xRef.current += 32;
+              }
+              break;
+            case 'left':
+              if (xRef.current - 32 >= 70) {
+                xRef.current -= 32;
+              }
+              break;
+            case 'up':
+              if (yRef.current - 32 >= 68) {
+                yRef.current -= 32;
+              }
+              break;
+            case 'down':
+              if (yRef.current + 32 <= 228) {
+                yRef.current += 32;
+              }
+              break;
+            default:
+              break;
+          }
+          // Remove primeira ação da fila
+          setMain(main.filter((action) => action.id !== currentAction.id));
+        } else {
+          clearTimeout();
+          setStart(false);
+        }
+      }, 1000);
+    }
+  }, [start, setStart, main, setMain]);
+  //
   useEffect(() => {
     monkey.play({
       type: 'idle',
       fps: 12,
       loop: true,
     });
-
-    setTimeout(() => {
-      if (x <= 382) {
-        setX(x + 32);
-      }
-    }, 1000);
-  }, [monkey, x]);
+  }, [monkey]);
 
   return (
     <View>
       <Stage />
-      <View style={{ position: 'absolute', top: 225, left: x }}>
+      <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
         <SpriteSheet
           ref={(ref) => (monkey = ref)}
           source={monkeySprite}

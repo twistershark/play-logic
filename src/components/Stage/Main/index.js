@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View, Text, FlatList, Image,
 } from 'react-native';
@@ -8,7 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAction } from '../../../hooks/actions';
 
 const MainList = () => {
-  const { main } = useAction();
+  const { mainVisual } = useAction();
 
   const nullData = [
     { id: 0, action: 'undefined', image: null },
@@ -26,7 +26,7 @@ const MainList = () => {
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
-          data={main.length ? main : nullData}
+          data={mainVisual.length ? mainVisual : nullData}
           numColumns={4}
           keyExtractor={(item, index) => item.id + index}
           renderItem={({ item }) => (
