@@ -22,7 +22,7 @@ const MainList = () => {
   ];
 
   return (
-    <View style={{ height: 100 }}>
+    <View style={styles.container}>
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
@@ -42,7 +42,9 @@ const MainList = () => {
 };
 
 const styles = EStyleSheet.create({
-
+  container: {
+    height: '10.25rem',
+  },
   title: {
     color: 'white',
     fontWeight: 'bold',

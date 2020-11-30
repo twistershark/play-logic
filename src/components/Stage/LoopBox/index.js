@@ -8,21 +8,21 @@ import {
 } from 'react-native';
 import { useAction } from '../../../hooks/actions';
 
-import loop from '../../../assets/botoes/bt-loop.png';
+import loopText from '../../../assets/botoes/bt-loop.png';
 import n1 from '../../../assets/botoes/bt-number1.png';
 import n2 from '../../../assets/botoes/bt-number2.png';
 import n3 from '../../../assets/botoes/bt-number3.png';
 import n4 from '../../../assets/botoes/bt-number4.png';
 
 const LoopBox = () => {
-  const [image, setImage] = useState(loop);
+  const [image, setImage] = useState(loopText);
   const [actionName, setActionName] = useState(' ');
   const [x, setX] = useState();
   const [y, setY] = useState();
   const pan = useRef(new Animated.ValueXY()).current;
-  const { handleAddToMain } = useAction();
+  const { handleAddToMain, loop } = useAction();
   const change = () => {
-    if (image === loop) {
+    if (image === loopText) {
       setImage(n1);
       setActionName('1');
     } else if (image === n1) {
@@ -35,7 +35,7 @@ const LoopBox = () => {
       setImage(n4);
       setActionName('4');
     } else {
-      setImage(loop);
+      setImage(loopText);
       setActionName(' ');
     }
   };
@@ -44,6 +44,8 @@ const LoopBox = () => {
     if (x > 460 && y > 30 && y < 180) {
       if (actionName !== ' ') {
         handleAddToMain(actionName, image);
+      } else {
+        alert(`${x} ${y}`);
       }
     }
   }, [x, y]);
