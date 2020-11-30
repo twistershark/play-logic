@@ -39,7 +39,7 @@ const IfBox = () => {
         if (actionName !== ' ') {
           handleAddToMain(actionName, image);
         }
-      } else if (y > 300 && y < 400) {
+      } else if (y > 300 && y < 400 && actionName) {
         handleAddToLoop(actionName, image);
       }
     }

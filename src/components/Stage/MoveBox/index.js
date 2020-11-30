@@ -20,7 +20,7 @@ const MoveBox = () => {
   const [x, setX] = useState(-1);
   const [y, setY] = useState(-1);
   const pan = useRef(new Animated.ValueXY()).current;
-  const { handleAddToMain } = useAction();
+  const { handleAddToMain, handleAddToLoop } = useAction();
 
   const change = () => {
     if (image === move) {
@@ -42,9 +42,13 @@ const MoveBox = () => {
   };
 
   useEffect(() => {
-    if (x > 460 && y > 30 && y < 180) {
-      if (actionName !== ' ') {
-        handleAddToMain(actionName, image);
+    if (x > 460) {
+      if (y > 30 && y < 180) {
+        if (actionName !== ' ') {
+          handleAddToMain(actionName, image);
+        }
+      } else if (y > 300 && y < 400 && actionName) {
+        handleAddToLoop(actionName, image);
       }
     }
   }, [x, y]);

@@ -44,8 +44,6 @@ const LoopBox = () => {
     if (x > 460 && y > 30 && y < 180) {
       if (actionName !== ' ') {
         handleAddToMain(actionName, image);
-      } else {
-        alert(`${x} ${y}`);
       }
     }
   }, [x, y]);
