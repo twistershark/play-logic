@@ -17,14 +17,13 @@ import LoopBox from './LoopBox';
 import Main from './Main';
 import Loop from './Loop';
 
-import map from '../../assets/mapas/mapa_completo.png';
 import play from '../../assets/play.png';
 import reset from '../../assets/reset.png';
 import backArrow from '../../assets/backarrow.png';
 
 import { useAction } from '../../hooks/actions';
 
-const Stage = () => {
+const Stage = ({ map }) => {
   const navigation = useNavigation();
   const { handleReset, setStart, start } = useAction();
 
