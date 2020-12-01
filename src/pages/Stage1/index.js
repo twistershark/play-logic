@@ -1,46 +1,47 @@
 import React, {
   useCallback,
-  useEffect, useRef,
+  useEffect, 
+  useRef,
   useState,
 } from 'react';
 import { View } from 'react-native';
-
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
-import Stage from '../../components/Stage';
-import Score from '../../components/Score';
+
 // import { useAuth } from '../../hooks/auth';
 import { useAction } from '../../hooks/actions';
+
+import Stage from '../../components/Stage';
+import Score from '../../components/Score';
+import { barriersArray } from './positions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
 import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
-  Orientation.lockToLandscape();
-  const [barriers, setBarriers] = useState([{ x: 390, y: 160 }, { x: 390, y: 128 }, { x: 358, y: 96 },
-    { x: 358, y: 64 }, { x: 358, y: 192 }, { x: 326, y: 224 }, { x: 294, y: 64 },
-    { x: 262, y: 64 }, { x: 230, y: 64 }, { x: 230, y: 160 }, { x: 230, y: 192 },
-    { x: 230, y: 224 }, { x: 198, y: 64 }, { x: 198, y: 192 }, { x: 198, y: 224 },
-    { x: 166, y: 224 }, { x: 134, y: 64 }, { x: 134, y: 224 }, { x: 102, y: 64 },
-    { x: 102, y: 192 }, { x: 102, y: 224 }, { x: 70, y: 64 }, { x: 70, y: 96 },
-    { x: 70, y: 128 }, { x: 70, y: 160 }, { x: 70, y: 192 }, { x: 70, y: 224 },
-    { x: 166, y: 32 },
-  ]);
+
   let monkey;
+  const [barriers, setBarriers] = useState(barriersArray);
+  
   const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
+  
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+
   const {
     main, start, setStart, setMain,
   } = useAction();
+
+  Orientation.lockToLandscape();
+
   // const { handleScoreUpdate } = useAuth();
-
+  
   // const updateScore = useCallback(() => {
-  //   handleScoreUpdate(2, 3);
-  // }, [handleScoreUpdate]);
-
+    //   handleScoreUpdate(2, 3);
+    // }, [handleScoreUpdate]);
+    
   const isValid = useCallback((currentPosition) => {
     for (let i = 0; i < barriers.length; i++) {
       if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
@@ -51,13 +52,20 @@ const Stage1 = () => {
   }, [barriers]);
 
   useEffect(() => {
+
     if (start) {
+
       setTimeout(() => {
+
         if (main.length > 0) {
+
           setGameStarted(true);
+
           const currentAction = main.shift();
           let currentXY;
+
           switch (currentAction.action) {
+
             case 'right':
               currentXY = { x: xRef.current + 32, y: yRef.current };
               if (isValid(currentXY)) {
@@ -65,6 +73,7 @@ const Stage1 = () => {
                 xRef.current += 32;
               }
               break;
+
             case 'left':
               currentXY = { x: xRef.current - 32, y: yRef.current };
               if (isValid(currentXY)) {
@@ -72,6 +81,7 @@ const Stage1 = () => {
                 xRef.current -= 32;
               }
               break;
+
             case 'up':
               currentXY = { x: xRef.current, y: yRef.current - 32 };
               if (isValid(currentXY)) {
@@ -79,6 +89,7 @@ const Stage1 = () => {
                 yRef.current -= 32;
               }
               break;
+
             case 'down':
               currentXY = { x: xRef.current, y: yRef.current + 32 };
               if (isValid(currentXY)) {
@@ -86,26 +97,31 @@ const Stage1 = () => {
                 yRef.current += 32;
               }
               break;
+
             default:
+
               break;
           }
-          // Remove primeira ação da fila
-          // setMain(main.filter((action) => action.id !== currentAction.id));
 
-          // Evita remover item com o mesmo id
           setMain(main.slice(0));
+
         } else {
+
           clearTimeout();
+
           setStart(false);
+
           if (gameStarted) {
             setModalVisible(true);
           }
+
         }
       }, 1000);
     }
   }, [start, setStart, main, setMain, isValid, gameStarted]);
 
   useEffect(() => {
+
     monkey.play({
       type: animation,
       fps: 12,
