@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import {
   SafeAreaView,
@@ -9,6 +9,7 @@ import {
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Orientation from 'react-native-orientation-locker';
+import Sound from 'react-native-sound';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -21,9 +22,22 @@ import play from '../../assets/IconPlay.png';
 const Dashboard = () => {
   const navigation = useNavigation();
   const [imageVolume, setImageVolume] = useState(true);
+  const [musicPlaying, setMusicPlaying] = useState(true);
+
+  Sound.setCategory('Playback');
+  const music = useMemo(() => new Sound('jungle_sound.mp3', Sound.MAIN_BUNDLE), []);
+
+  useEffect(() => {
+    if (musicPlaying) {
+      music.play();
+    } else if (!musicPlaying) {
+      music.pause();
+    }
+  }, [music, musicPlaying]);
 
   const setImage = () => {
     setImageVolume(!imageVolume);
+    setMusicPlaying(!musicPlaying);
   };
 
   Orientation.lockToPortrait();
