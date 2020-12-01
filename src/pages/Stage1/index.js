@@ -56,7 +56,10 @@ const Stage1 = () => {
               break;
           }
           // Remove primeira ação da fila
-          setMain(main.filter((action) => action.id !== currentAction.id));
+          // setMain(main.filter((action) => action.id !== currentAction.id));
+
+          // Evita remover item com o mesmo id
+          setMain(main.slice(0));
         } else {
           clearTimeout();
           setStart(false);
