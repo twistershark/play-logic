@@ -124,7 +124,7 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: -1,
                 score2: -1,
@@ -158,7 +158,7 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: -1,
                 score2: -1,
@@ -203,7 +203,7 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: -1,
                 score2: -1,
