@@ -67,7 +67,7 @@ const Stage1 = () => {
       }, 1000);
     }
   }, [start, setStart, main, setMain]);
-  //
+
   useEffect(() => {
     monkey.play({
       type: 'idle',

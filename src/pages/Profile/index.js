@@ -20,13 +20,15 @@ import { useAuth } from '../../hooks/auth';
 import ScoreList from '../../components/ScoreList';
 
 const Profile = () => {
-  const score = [
-    { key: '1', star: 3 },
-    { key: '2', star: 2 },
-    { key: '3', star: -1 },
-  ];
+  const {
+    user, logout, score1, score2, score3,
+  } = useAuth();
 
-  const { user, logout } = useAuth();
+  const score = [
+    { key: '1', star: score1 },
+    { key: '2', star: score2 },
+    { key: '3', star: score3 },
+  ];
 
   const navigation = useNavigation();
 
