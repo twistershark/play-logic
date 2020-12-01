@@ -1,5 +1,7 @@
 import React, {
+  useCallback,
   useEffect, useRef,
+  useState,
 } from 'react';
 import { View } from 'react-native';
 
@@ -14,7 +16,7 @@ import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
   Orientation.lockToLandscape();
-  const barriers = [{ x: 390, y: 160 }, { x: 390, y: 128 }, { x: 358, y: 96 },
+  const [barriers, setBarriers] = useState([{ x: 390, y: 160 }, { x: 390, y: 128 }, { x: 358, y: 96 },
     { x: 358, y: 64 }, { x: 358, y: 192 }, { x: 326, y: 224 }, { x: 294, y: 64 },
     { x: 262, y: 64 }, { x: 230, y: 64 }, { x: 230, y: 160 }, { x: 230, y: 192 },
     { x: 230, y: 224 }, { x: 198, y: 64 }, { x: 198, y: 192 }, { x: 198, y: 224 },
@@ -22,9 +24,7 @@ const Stage1 = () => {
     { x: 102, y: 192 }, { x: 102, y: 224 }, { x: 70, y: 64 }, { x: 70, y: 96 },
     { x: 70, y: 128 }, { x: 70, y: 160 }, { x: 70, y: 192 }, { x: 70, y: 224 },
     { x: 166, y: 32 },
-  ];
-  const xBarriers = [390, 358, 326, 294, 262, 230, 198, 166, 134, 102, 70];
-  const yBarriers = [160, 128, 96, 64, 192, 224];
+  ]);
   let monkey;
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
@@ -37,14 +37,14 @@ const Stage1 = () => {
   //   handleScoreUpdate(2, 3);
   // }, [handleScoreUpdate]);
 
-  const isValid = (currentPosition) => {
+  const isValid = useCallback((currentPosition) => {
     for (let i = 0; i < barriers.length; i++) {
       if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
         return false;
       }
     }
     return true;
-  };
+  }, [barriers]);
 
   useEffect(() => {
     if (start) {
@@ -91,7 +91,7 @@ const Stage1 = () => {
         }
       }, 1000);
     }
-  }, [start, setStart, main, setMain]);
+  }, [start, setStart, main, setMain, isValid]);
 
   useEffect(() => {
     monkey.play({
