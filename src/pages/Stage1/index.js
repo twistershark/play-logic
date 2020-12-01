@@ -14,10 +14,17 @@ import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
   Orientation.lockToLandscape();
-  const barriers = [];
+  const barriers = [{ x: 390, y: 160 }, { x: 390, y: 128 }, { x: 358, y: 96 },
+    { x: 358, y: 64 }, { x: 358, y: 192 }, { x: 326, y: 224 }, { x: 294, y: 64 },
+    { x: 262, y: 64 }, { x: 230, y: 64 }, { x: 230, y: 160 }, { x: 230, y: 192 },
+    { x: 230, y: 224 }, { x: 198, y: 64 }, { x: 198, y: 192 }, { x: 198, y: 224 },
+    { x: 166, y: 224 }, { x: 134, y: 64 }, { x: 134, y: 224 }, { x: 102, y: 64 },
+    { x: 102, y: 192 }, { x: 102, y: 224 }, { x: 70, y: 64 }, { x: 70, y: 96 },
+    { x: 70, y: 128 }, { x: 70, y: 160 }, { x: 70, y: 192 }, { x: 70, y: 224 },
+  ];
   let monkey;
-  const xRef = useRef(358); // initial 102
-  const yRef = useRef(164); // initial 102
+  const xRef = useRef(102); // initial 102
+  const yRef = useRef(160); // initial 102
   const {
     main, start, setStart, setMain,
   } = useAction();
@@ -31,17 +38,19 @@ const Stage1 = () => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
-          let currentXY;
+          let currentXY = [];
           const currentAction = main.shift();
           switch (currentAction.action) {
             case 'right':
-              currentXY = [{ x: xRef + 32, y: yRef }];
-              if (xRef.current + 32 <= 390) {
+              currentXY = { x: xRef.current + 32, y: yRef.current };
+              console.log(currentXY);
+              if (barriers.indexOf(currentXY) === -1) {
                 xRef.current += 32;
               }
               break;
             case 'left':
-              if (xRef.current - 32 >= 70) {
+              currentXY = [{ x: xRef - 32, y: yRef }];
+              if (barriers.indexOf() === -1) {
                 xRef.current -= 32;
               }
               break;
