@@ -1,6 +1,6 @@
 import React, {
   useCallback,
-  useEffect, 
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -19,14 +19,13 @@ import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png
 import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
-
   let monkey;
   const [barriers, setBarriers] = useState(barriersArray);
-  
+
   const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
-  
+
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -37,11 +36,11 @@ const Stage1 = () => {
   Orientation.lockToLandscape();
 
   // const { handleScoreUpdate } = useAuth();
-  
+
   // const updateScore = useCallback(() => {
-    //   handleScoreUpdate(2, 3);
-    // }, [handleScoreUpdate]);
-    
+  //   handleScoreUpdate(2, 3);
+  // }, [handleScoreUpdate]);
+
   const isValid = useCallback((currentPosition) => {
     for (let i = 0; i < barriers.length; i++) {
       if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
@@ -52,20 +51,15 @@ const Stage1 = () => {
   }, [barriers]);
 
   useEffect(() => {
-
     if (start) {
-
       setTimeout(() => {
-
         if (main.length > 0) {
-
           setGameStarted(true);
 
           const currentAction = main.shift();
           let currentXY;
 
           switch (currentAction.action) {
-
             case 'right':
               currentXY = { x: xRef.current + 32, y: yRef.current };
               if (isValid(currentXY)) {
@@ -104,9 +98,7 @@ const Stage1 = () => {
           }
 
           setMain(main.slice(0));
-
         } else {
-
           clearTimeout();
 
           setStart(false);
@@ -114,14 +106,12 @@ const Stage1 = () => {
           if (gameStarted) {
             setModalVisible(true);
           }
-
         }
       }, 1000);
     }
   }, [start, setStart, main, setMain, isValid, gameStarted]);
 
   useEffect(() => {
-
     monkey.play({
       type: animation,
       fps: 12,
