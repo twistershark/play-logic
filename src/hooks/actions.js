@@ -11,7 +11,6 @@ export const ActionContext = createContext();
 const ActionProvider = ({ children }) => {
   const [main, setMain] = useState([]);
   const [loop, setLoop] = useState([]);
-  const [counter, setCounter] = useState(0);
   const [id, setId] = useState(0);
   const [start, setStart] = useState(false);
 
@@ -24,17 +23,9 @@ const ActionProvider = ({ children }) => {
 
   // Recebe o ID e a image da ação e adiciona no array das ações main
   const handleAddToMain = useCallback((action, image) => {
-    if (counter < 8) {
-      const updatedMain = main;
-      updatedMain[counter] = { id, action, image };
-      setId(id + 1);
-
-      setMain(updatedMain);
-      setCounter(counter + 1);
-    } else {
-      setMain((prevState) => ([...prevState, { id, action, image }]));
-    }
-  }, [counter, main, id]);
+    setMain((prevState) => ([...prevState, { id, action, image }]));
+    setId(id + 1);
+  }, [id]);
 
   // Recebe o ID e a image da ação e adiciona no array das ações loop
   const handleAddToLoop = useCallback((action, image) => {
@@ -75,7 +66,6 @@ const ActionProvider = ({ children }) => {
   const handleReset = useCallback(() => {
     setMain([]);
     setLoop([]);
-    setCounter(0);
     setId(0);
   }, []);
 
