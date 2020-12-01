@@ -24,6 +24,8 @@ const Profile = () => {
     user, logout, score1, score2, score3,
   } = useAuth();
 
+  const userName = user.email.split('@');
+
   const score = [
     { key: '1', star: score1 },
     { key: '2', star: score2 },
@@ -43,7 +45,9 @@ const Profile = () => {
         <View style={styles.profileImage}>
           <Image style={styles.userImage} source={userImage} />
         </View>
-        <Text style={styles.userName}>{user.email}</Text>
+        <View style={{ marginVertical: 2 }}>
+          <Text style={styles.userName}>{userName[0]}</Text>
+        </View>
         <View>
           <TouchableOpacity onPress={logout}>
             <Text style={styles.textOptions}>{ user ? 'Logout' : 'Login' }</Text>
@@ -91,12 +95,13 @@ const styles = EStyleSheet.create({
   },
 
   userName: {
-    fontSize: 24,
+    fontSize: 20,
     color: 'white',
   },
 
   textOptions: {
-    color: 'white',
+    fontSize: 13,
+    color: '#f2f2f2',
   },
 
   score: {
