@@ -30,6 +30,7 @@
     "no-loop-func": "off",
     "no-nested-ternary": "off",
     "no-plusplus": "off",
+    "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": "off",
     "react-hooks/rules-of-hooks": "error",
