@@ -21,7 +21,10 @@ const Stage1 = () => {
     { x: 166, y: 224 }, { x: 134, y: 64 }, { x: 134, y: 224 }, { x: 102, y: 64 },
     { x: 102, y: 192 }, { x: 102, y: 224 }, { x: 70, y: 64 }, { x: 70, y: 96 },
     { x: 70, y: 128 }, { x: 70, y: 160 }, { x: 70, y: 192 }, { x: 70, y: 224 },
+    { x: 166, y: 32 },
   ];
+  const xBarriers = [390, 358, 326, 294, 262, 230, 198, 166, 134, 102, 70];
+  const yBarriers = [160, 128, 96, 64, 192, 224];
   let monkey;
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
@@ -34,33 +37,43 @@ const Stage1 = () => {
   //   handleScoreUpdate(2, 3);
   // }, [handleScoreUpdate]);
 
+  const isValid = (currentPosition) => {
+    for (let i = 0; i < barriers.length; i++) {
+      if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   useEffect(() => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
-          let currentXY = [];
           const currentAction = main.shift();
+          let currentXY;
           switch (currentAction.action) {
             case 'right':
               currentXY = { x: xRef.current + 32, y: yRef.current };
-              console.log(currentXY);
-              if (barriers.indexOf(currentXY) === -1) {
+              if (isValid(currentXY)) {
                 xRef.current += 32;
               }
               break;
             case 'left':
-              currentXY = [{ x: xRef - 32, y: yRef }];
-              if (barriers.indexOf() === -1) {
+              currentXY = { x: xRef.current - 32, y: yRef.current };
+              if (isValid(currentXY)) {
                 xRef.current -= 32;
               }
               break;
             case 'up':
-              if (yRef.current - 32 >= 68) {
+              currentXY = { x: xRef.current, y: yRef.current - 32 };
+              if (isValid(currentXY)) {
                 yRef.current -= 32;
               }
               break;
             case 'down':
-              if (yRef.current + 32 <= 228) {
+              currentXY = { x: xRef.current, y: yRef.current + 32 };
+              if (isValid(currentXY)) {
                 yRef.current += 32;
               }
               break;
