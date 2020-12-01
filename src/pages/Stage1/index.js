@@ -26,6 +26,7 @@ const Stage1 = () => {
     { x: 166, y: 32 },
   ]);
   let monkey;
+  const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
   const {
@@ -56,24 +57,28 @@ const Stage1 = () => {
             case 'right':
               currentXY = { x: xRef.current + 32, y: yRef.current };
               if (isValid(currentXY)) {
+                setAnimation('right');
                 xRef.current += 32;
               }
               break;
             case 'left':
               currentXY = { x: xRef.current - 32, y: yRef.current };
               if (isValid(currentXY)) {
+                setAnimation('left');
                 xRef.current -= 32;
               }
               break;
             case 'up':
               currentXY = { x: xRef.current, y: yRef.current - 32 };
               if (isValid(currentXY)) {
+                setAnimation('up');
                 yRef.current -= 32;
               }
               break;
             case 'down':
               currentXY = { x: xRef.current, y: yRef.current + 32 };
               if (isValid(currentXY)) {
+                setAnimation('down');
                 yRef.current += 32;
               }
               break;
@@ -95,11 +100,11 @@ const Stage1 = () => {
 
   useEffect(() => {
     monkey.play({
-      type: 'idle',
+      type: animation,
       fps: 12,
       loop: true,
     });
-  }, [monkey]);
+  }, [monkey, animation]);
 
   return (
     <View>
@@ -112,7 +117,10 @@ const Stage1 = () => {
           rows={4}
           width={40}
           animations={{
-            idle: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 5, 3, 2, 1, 0],
+            up: [18, 19, 20],
+            right: [6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 11, 9, 8, 7],
+            left: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 5, 3, 2, 1],
+            down: [12, 13, 15, 13],
           }}
         />
       </View>

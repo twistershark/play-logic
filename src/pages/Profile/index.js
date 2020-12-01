@@ -43,7 +43,7 @@ const Profile = () => {
         <View style={styles.profileImage}>
           <Image style={styles.userImage} source={userImage} />
         </View>
-        <Text style={styles.userName}>Nome do Usuário</Text>
+        <Text style={styles.userName}>{user.email}</Text>
         <View>
           <TouchableOpacity onPress={logout}>
             <Text style={styles.textOptions}>{ user ? 'Logout' : 'Login' }</Text>
