@@ -10,13 +10,14 @@ import Stage from '../../components/Stage';
 import { useAction } from '../../hooks/actions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
+import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
   Orientation.lockToLandscape();
-
+  const barriers = [];
   let monkey;
-  const xRef = useRef(70);
-  const yRef = useRef(228);
+  const xRef = useRef(358); // initial 102
+  const yRef = useRef(164); // initial 102
   const {
     main, start, setStart, setMain,
   } = useAction();
@@ -30,9 +31,11 @@ const Stage1 = () => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
+          let currentXY;
           const currentAction = main.shift();
           switch (currentAction.action) {
             case 'right':
+              currentXY = [{ x: xRef + 32, y: yRef }];
               if (xRef.current + 32 <= 390) {
                 xRef.current += 32;
               }
@@ -78,7 +81,7 @@ const Stage1 = () => {
 
   return (
     <View>
-      <Stage />
+      <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
         <SpriteSheet
           ref={(ref) => (monkey = ref)}
