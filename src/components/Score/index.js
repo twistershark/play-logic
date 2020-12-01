@@ -16,7 +16,7 @@ import nextFase from '../../assets/nextFase.png';
 import reset from '../../assets/reset.png';
 import scoreText from '../../assets/Score.png';
 import star from '../../assets/star.png';
-import noStar from '../../assets/null.png';
+import noStar from '../../assets/emptyStar.png';
 
 const ScorePage = ({ isVisible, score }) => {
   const [visible, setVisible] = useState(isVisible);

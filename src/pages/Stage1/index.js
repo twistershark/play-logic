@@ -8,6 +8,7 @@ import { View } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 import Stage from '../../components/Stage';
+import Score from '../../components/Score';
 // import { useAuth } from '../../hooks/auth';
 import { useAction } from '../../hooks/actions';
 
@@ -29,6 +30,8 @@ const Stage1 = () => {
   const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
   const yRef = useRef(160); // initial 102
+  const [gameStarted, setGameStarted] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const {
     main, start, setStart, setMain,
   } = useAction();
@@ -51,6 +54,7 @@ const Stage1 = () => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
+          setGameStarted(true);
           const currentAction = main.shift();
           let currentXY;
           switch (currentAction.action) {
@@ -93,10 +97,13 @@ const Stage1 = () => {
         } else {
           clearTimeout();
           setStart(false);
+          if (gameStarted) {
+            setModalVisible(true);
+          }
         }
       }, 1000);
     }
-  }, [start, setStart, main, setMain, isValid]);
+  }, [start, setStart, main, setMain, isValid, gameStarted]);
 
   useEffect(() => {
     monkey.play({
@@ -107,7 +114,10 @@ const Stage1 = () => {
   }, [monkey, animation]);
 
   return (
+
     <View>
+      {modalVisible === true && <Score isVisible={modalVisible} score={2} />}
+
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
         <SpriteSheet
