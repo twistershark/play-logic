@@ -8,8 +8,7 @@ import { View, Image, Alert } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 
-// import { useAuth } from '../../hooks/auth';
-import { set } from 'react-native-reanimated';
+import { useAuth } from '../../hooks/auth';
 import { useAction } from '../../hooks/actions';
 
 import Stage from '../../components/Stage';
@@ -33,17 +32,18 @@ const Stage1 = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
+  const [bananasEaten, setBananasEaten] = useState(0);
   const {
     main, start, setStart, setMain,
   } = useAction();
 
   Orientation.lockToLandscape();
 
-  // const { handleScoreUpdate } = useAuth();
+  const { handleScoreUpdate } = useAuth();
 
-  // const updateScore = useCallback(() => {
-  //   handleScoreUpdate(2, 3);
-  // }, [handleScoreUpdate]);
+  const updateScore = useCallback(() => {
+    handleScoreUpdate(0, score);
+  }, [handleScoreUpdate]);
 
   const eat = (currentPosition) => {
     for (let i = 0; i < bananasArray.length; i++) {
@@ -86,12 +86,25 @@ const Stage1 = () => {
     }
   };
 
+  const contScore = () => {
+    if (bananasEaten === 3) {
+      if (moves < 14) {
+        setScore(3);
+      } else if (moves < 18) {
+        setScore(2);
+      } else {
+        setScore(1);
+      }
+    } else {
+      setScore(0);
+    }
+  };
+
   useEffect(() => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
           setGameStarted(true);
-          console.log(moves);
           const currentAction = main.shift();
           let currentXY;
 
@@ -134,7 +147,7 @@ const Stage1 = () => {
             case 'eat':
               currentXY = { x: xRef.current, y: yRef.current };
               if (eat(currentXY)) {
-                setScore(score + 1);
+                setBananasEaten(bananasEaten + 1);
                 contInstructions(currentAction.id);
               }
               break;
@@ -147,7 +160,9 @@ const Stage1 = () => {
           clearTimeout();
           setStart(false);
           if (gameStarted) {
+            contScore();
             setModalVisible(true);
+            updateScore();
           }
         }
       }, 1000);
