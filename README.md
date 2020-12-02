@@ -20,13 +20,9 @@ O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchu
   <img src="src/assets/personagens/macaco/png/Macaco_idle_D.gif">
 </p>
 
-## Guia do jogo
+## Informação sobre jogo
 
-O jogo possui botões responsáveis pela movimentação do personagem. Para eles funcionarem devem ser arrastados para a main.
-
-Esse botão, por exemplo, move o personagem uma casa para a direita.
-
-![botao-direita](src/assets/botoes/bt-right.png)
+O jogo funciona por meio de botões que serão arrastaveis para uma main. Dentro do jogo haverá um tutorial de como jogar.
 
 ## Manual de Instalação
 
