@@ -36,7 +36,7 @@ const Stage = () => {
       <View style={styles.stages}>
         <StageBox id={1} status={0} />
         <StageBox id={2} status={score2} />
-        <StageBox id={3} status={score3} />
+        <StageBox id={3} status={0} />
       </View>
     </SafeAreaView>
 
