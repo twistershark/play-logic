@@ -25,7 +25,7 @@ const Dashboard = () => {
   const [musicPlaying, setMusicPlaying] = useState(true);
 
   Sound.setCategory('Playback');
-  const music = useMemo(() => new Sound('jungle_sound.mp3', Sound.MAIN_BUNDLE), []);
+  const music = useMemo(() => new Sound('jungle_sound.mp3', Sound.MAIN_BUNDLE, () => music.play()), []);
 
   useEffect(() => {
     if (musicPlaying) {

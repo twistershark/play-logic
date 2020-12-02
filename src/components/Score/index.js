@@ -13,7 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import menu from '../../assets/menu.png';
 import nextFase from '../../assets/nextFase.png';
-import reset from '../../assets/reset.png';
 import scoreText from '../../assets/Score.png';
 import star from '../../assets/star.png';
 import noStar from '../../assets/emptyStar.png';
@@ -36,9 +35,6 @@ const ScorePage = ({ isVisible, score }) => {
             <Image source={score === 3 ? star : noStar} style={styles.starView} />
           </View>
           <View style={styles.rowButtons}>
-            <TouchableOpacity onPress={() => setVisible(false)} style={styles.button}>
-              <Image source={reset} />
-            </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('Stages'); setVisible(false); }} style={styles.button}>
               <Image source={menu} />
             </TouchableOpacity>
