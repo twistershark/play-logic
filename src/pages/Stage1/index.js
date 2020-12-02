@@ -41,14 +41,14 @@ const Stage1 = () => {
   //   handleScoreUpdate(2, 3);
   // }, [handleScoreUpdate]);
 
-  const isValid = useCallback((currentPosition) => {
+  const isValid = (currentPosition) => {
     for (let i = 0; i < barriers.length; i++) {
       if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
         return false;
       }
     }
     return true;
-  }, [barriers]);
+  };
 
   useEffect(() => {
     if (start) {
@@ -100,16 +100,14 @@ const Stage1 = () => {
           setMain(main.slice(0));
         } else {
           clearTimeout();
-
           setStart(false);
-
           if (gameStarted) {
             setModalVisible(true);
           }
         }
       }, 1000);
     }
-  }, [start, setStart, main, setMain, isValid, gameStarted]);
+  }, [start, main, setMain]);
 
   useEffect(() => {
     monkey.play({
