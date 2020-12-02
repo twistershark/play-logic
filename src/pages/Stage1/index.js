@@ -27,7 +27,7 @@ const Stage1 = () => {
 
   const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
-  const yRef = useRef(160); // initial 102
+  const yRef = useRef(128); // initial 102
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,6 +44,7 @@ const Stage1 = () => {
   // const updateScore = useCallback(() => {
   //   handleScoreUpdate(2, 3);
   // }, [handleScoreUpdate]);
+
   const eat = (currentPosition) => {
     for (let i = 0; i < bananasArray.length; i++) {
       if (bananasArray[i].x === currentPosition.x && bananasArray[i].y === currentPosition.y && opacityBanana[i] === 1) {
