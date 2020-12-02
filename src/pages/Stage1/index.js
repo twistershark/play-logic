@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { View, Image, Alert } from 'react-native';
+import { View, Image } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 

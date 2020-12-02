@@ -29,6 +29,7 @@
     "no-return-assign": "off",
     "no-loop-func": "off",
     "no-nested-ternary": "off",
+    "max-len": "off",
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
