@@ -7,3 +7,5 @@ export const barriersArray = [{ x: 390, y: 160 }, { x: 390, y: 128 }, { x: 358, 
   { x: 70, y: 128 }, { x: 70, y: 160 }, { x: 70, y: 192 }, { x: 70, y: 224 },
   { x: 166, y: 32 },
 ];
+
+export const bananasArray = [{ x: 198, y: 128 }, { x: 358, y: 128 }, { x: 262, y: 224 }];
