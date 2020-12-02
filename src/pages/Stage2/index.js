@@ -1,39 +1,146 @@
-import React from 'react';
-import {
-  View, Text, TouchableOpacity, Image,
-} from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { View } from 'react-native';
+import SpriteSheet from 'rn-sprite-sheet';
+import Orientation from 'react-native-orientation-locker';
 
-import { useNavigation } from '@react-navigation/native';
+// import { useAuth } from '../../hooks/auth';
+import { useAction } from '../../hooks/actions';
 
-import EStyleSheet from 'react-native-extended-stylesheet';
-import backArrow from '../../assets/backarrow.png';
+import Stage from '../../components/Stage';
+import Score from '../../components/Score';
+import { barriersArray } from './positions';
+
+import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
+import map from '../../assets/mapas/mapa_fase2_v4.png';
 
 const Stage2 = () => {
-  const navigation = useNavigation();
+  let monkey;
+  const [barriers, setBarriers] = useState(barriersArray);
+
+  const [animation, setAnimation] = useState('down');
+  const xRef = useRef(102); // initial 102
+  const yRef = useRef(160); // initial 102
+
+  const [gameStarted, setGameStarted] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const {
+    main, start, setStart, setMain,
+  } = useAction();
+
+  Orientation.lockToLandscape();
+
+  // const { handleScoreUpdate } = useAuth();
+
+  // const updateScore = useCallback(() => {
+  //   handleScoreUpdate(2, 3);
+  // }, [handleScoreUpdate]);
+
+  const isValid = (currentPosition) => {
+    for (let i = 0; i < barriers.length; i++) {
+      if (barriers[i].x === currentPosition.x && barriers[i].y === currentPosition.y) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    if (start) {
+      setTimeout(() => {
+        if (main.length > 0) {
+          setGameStarted(true);
+
+          const currentAction = main.shift();
+          let currentXY;
+
+          switch (currentAction.action) {
+            case 'right':
+              currentXY = { x: xRef.current + 32, y: yRef.current };
+              if (isValid(currentXY)) {
+                setAnimation('right');
+                xRef.current += 32;
+              }
+              break;
+
+            case 'left':
+              currentXY = { x: xRef.current - 32, y: yRef.current };
+              if (isValid(currentXY)) {
+                setAnimation('left');
+                xRef.current -= 32;
+              }
+              break;
+
+            case 'up':
+              currentXY = { x: xRef.current, y: yRef.current - 32 };
+              if (isValid(currentXY)) {
+                setAnimation('up');
+                yRef.current -= 32;
+              }
+              break;
+
+            case 'down':
+              currentXY = { x: xRef.current, y: yRef.current + 32 };
+              if (isValid(currentXY)) {
+                setAnimation('down');
+                yRef.current += 32;
+              }
+              break;
+
+            default:
+
+              break;
+          }
+
+          setMain(main.slice(0));
+        } else {
+          clearTimeout();
+          setStart(false);
+          if (gameStarted) {
+            setModalVisible(true);
+          }
+        }
+      }, 1000);
+    }
+  }, [start, main, setMain]);
+
+  useEffect(() => {
+    monkey.play({
+      type: animation,
+      fps: 12,
+      loop: true,
+    });
+  }, [monkey, animation]);
+
   return (
+
     <View>
-      <View>
-        <TouchableOpacity style={styles.backNavigation} onPress={() => navigation.goBack()}>
-          <Image source={backArrow} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <Text style={{ color: 'red' }}>Bem vindo à Fase 2</Text>
+      {modalVisible === true && <Score isVisible={modalVisible} score={2} />}
+
+      <Stage map={map} />
+      <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
+        <SpriteSheet
+          ref={(ref) => (monkey = ref)}
+          source={monkeySprite}
+          columns={6}
+          rows={4}
+          width={40}
+          animations={{
+            up: [18, 19, 20],
+            right: [6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 11, 9, 8, 7],
+            left: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 5, 3, 2, 1],
+            down: [12, 13, 15, 13],
+          }}
+        />
       </View>
     </View>
+
   );
 };
-
-const styles = EStyleSheet.create({
-  backNavigation: {
-    marginTop: '2rem',
-    marginLeft: '0.75rem',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Stage2;
