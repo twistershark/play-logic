@@ -28,13 +28,17 @@ const Stage = ({ map }) => {
   const { handleReset, setStart, start } = useAction();
 
   const handleGoBack = useCallback(() => {
-    handleReset();
-    navigation.goBack();
-  }, [navigation, handleReset]);
+    if (!start) {
+      handleReset();
+      navigation.goBack();
+    }
+  }, [navigation, handleReset, start]);
 
   const handleGameReset = useCallback(() => {
-    handleReset();
-  }, [handleReset]);
+    if (!start) {
+      handleReset();
+    }
+  }, [handleReset, start]);
 
   return (
     <SafeAreaView style={styles.container}>
