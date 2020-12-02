@@ -9,6 +9,7 @@ import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 
 // import { useAuth } from '../../hooks/auth';
+import { set } from 'react-native-reanimated';
 import { useAction } from '../../hooks/actions';
 
 import Stage from '../../components/Stage';
@@ -30,7 +31,8 @@ const Stage1 = () => {
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [score, setScore] = useState(0);
+  const [moves, setMoves] = useState(0);
   const {
     main, start, setStart, setMain,
   } = useAction();
@@ -73,12 +75,22 @@ const Stage1 = () => {
     return true;
   };
 
+  const contInstructions = (currentId) => {
+    if (main.length > 1) {
+      if (currentId !== main[1].id) {
+        setMoves(moves + 1);
+      }
+    } else {
+      setMoves(moves + 1);
+    }
+  };
+
   useEffect(() => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
           setGameStarted(true);
-
+          console.log(moves);
           const currentAction = main.shift();
           let currentXY;
 
@@ -88,6 +100,7 @@ const Stage1 = () => {
               if (isValid(currentXY)) {
                 setAnimation('right');
                 xRef.current += 32;
+                contInstructions(currentAction.id);
               }
               break;
 
@@ -96,6 +109,7 @@ const Stage1 = () => {
               if (isValid(currentXY)) {
                 setAnimation('left');
                 xRef.current -= 32;
+                contInstructions(currentAction.id);
               }
               break;
 
@@ -104,6 +118,7 @@ const Stage1 = () => {
               if (isValid(currentXY)) {
                 setAnimation('up');
                 yRef.current -= 32;
+                contInstructions(currentAction.id);
               }
               break;
 
@@ -112,12 +127,14 @@ const Stage1 = () => {
               if (isValid(currentXY)) {
                 setAnimation('down');
                 yRef.current += 32;
+                contInstructions(currentAction.id);
               }
               break;
             case 'eat':
               currentXY = { x: xRef.current, y: yRef.current };
               if (eat(currentXY)) {
-                console.log('Comeu!');
+                setScore(score + 1);
+                contInstructions(currentAction.id);
               }
               break;
             default:
@@ -147,7 +164,7 @@ const Stage1 = () => {
   return (
 
     <View>
-      {/* {modalVisible === true && <Score isVisible={modalVisible} score={2} />} */}
+      { modalVisible === true && <Score isVisible={modalVisible} score={score} />}
 
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
