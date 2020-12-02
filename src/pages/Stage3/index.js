@@ -3,7 +3,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 
@@ -15,6 +15,7 @@ import Score from '../../components/Score';
 import { barriersArray } from './positions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
+import banana from '../../assets/objetos/banana_normal.png';
 import map from '../../assets/mapas/mapa_fase3_v4.png';
 
 const Stage1 = () => {
@@ -22,8 +23,8 @@ const Stage1 = () => {
   const [barriers, setBarriers] = useState(barriersArray);
 
   const [animation, setAnimation] = useState('down');
-  const xRef = useRef(70); // initial 102
-  const yRef = useRef(96); // initial 102
+  const xRef = useRef(230); // initial 102
+  const yRef = useRef(192); // initial 102
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -135,6 +136,15 @@ const Stage1 = () => {
             down: [12, 13, 15, 13],
           }}
         />
+      </View>
+      <View style={{ position: 'absolute', top: 96, left: 134 }}>
+        <Image source={banana} />
+      </View>
+      <View style={{ position: 'absolute', top: 128, left: 358 }}>
+        <Image source={banana} />
+      </View>
+      <View style={{ position: 'absolute', top: 160, left: 198 }}>
+        <Image source={banana} />
       </View>
     </View>
 

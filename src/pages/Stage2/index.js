@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 
@@ -16,6 +16,7 @@ import Score from '../../components/Score';
 import { barriersArray } from './positions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
+import banana from '../../assets/objetos/banana_normal.png';
 import map from '../../assets/mapas/mapa_fase2_v4.png';
 
 const Stage2 = () => {
@@ -137,6 +138,15 @@ const Stage2 = () => {
             down: [12, 13, 15, 13],
           }}
         />
+      </View>
+      <View style={{ position: 'absolute', top: 224, left: 102 }}>
+        <Image source={banana} />
+      </View>
+      <View style={{ position: 'absolute', top: 128, left: 358 }}>
+        <Image source={banana} />
+      </View>
+      <View style={{ position: 'absolute', top: 224, left: 390 }}>
+        <Image source={banana} />
       </View>
     </View>
 
