@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View, Text, FlatList, Image,
 } from 'react-native';
@@ -8,7 +8,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useAction } from '../../../hooks/actions';
 
 const MainList = () => {
-  const { main } = useAction();
+  const { main, start } = useAction();
+  const [mainAmount, setMainAmount] = useState(main.length);
+  const flatListRef = useRef();
 
   const nullData = [
     { id: 0, action: 'undefined', image: null },
@@ -21,11 +23,25 @@ const MainList = () => {
     { id: 7, action: 'undefined', image: null },
   ];
 
+  useEffect(() => {
+    if (main.length > mainAmount) {
+      flatListRef.current.scrollToEnd();
+      setMainAmount(main.length);
+    }
+  }, [main.length, mainAmount]);
+
+  useEffect(() => {
+    if (start === true) {
+      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+    }
+  }, [start]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>MAIN</Text>
       <View style={styles.list}>
         <FlatList
+          ref={flatListRef}
           data={main.length ? main : nullData}
           numColumns={4}
           keyExtractor={(item, index) => item.id + index}
