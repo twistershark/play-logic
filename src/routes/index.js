@@ -3,6 +3,7 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 import auth from '@react-native-firebase/auth';
 import { ActivityIndicator, View } from 'react-native';
+
 import { useAuth } from '../hooks/auth';
 
 import AuthRoutes from './auth.routes';
