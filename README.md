@@ -17,7 +17,7 @@ A idéia do jogo surgiu após o grupo perceber a dificuldade de alguns alunos em
 O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchus* ), Escolhemos esse macaquinho para representar a biodiversidade do nosso país, pois a espécie ocorre apenas no Nordeste brasileiro e na Caatinga.
 
 <p align="center">
-  <img src="src/assets/personagens/macaco/png/Macaco_idle_D.gif">
+  <img src="src/assets/visual/Macaco_idle.gif">
 </p>
 
 ## Informação sobre jogo
@@ -31,5 +31,5 @@ O jogo funciona por meio de botões que serão arrastaveis para uma main. Dentro
 3. Execute o arquivo apk e aguarde a finalização da instalação.
 
 <p align="center">
-  <img src="src/assets/personagens/macaco/png/Macaco_trap.gif">
+  <img src="src/assets/visual/Macaco_trap.gif">
 </p>
