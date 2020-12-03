@@ -13,7 +13,7 @@ import { useAction } from '../../hooks/actions';
 
 import Stage from '../../components/Stage';
 import Score from '../../components/Score';
-import { barriersArray, bananasArray } from './positions';
+import { barriersArray, bananasArray, trapsArray } from './positions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
 import banana from '../../assets/objetos/banana_normal.png';
@@ -25,8 +25,8 @@ const Stage2 = () => {
   const [opacityBanana, setOpacityBanana] = useState([1, 1, 1]);
 
   const [animation, setAnimation] = useState('down');
-  const xRef = useRef(102); // initial 102
-  const yRef = useRef(160); // initial 102
+  const xRef = useRef(294); // initial 102
+  const yRef = useRef(224); // initial 102
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -43,6 +43,14 @@ const Stage2 = () => {
   // const updateScore = useCallback(() => {
   //   handleScoreUpdate(2, 3);
   // }, [handleScoreUpdate]);
+  const jump = (currentPosition) => {
+    for (let i = 0; i < trapsArray.length; i++) {
+      if (trapsArray[i].x === currentPosition.x + 32 && trapsArray[i].y === currentPosition.y) { return { animation: 'right', x: 64, y: 0 }; }
+      if (trapsArray[i].x === currentPosition.x - 32 && trapsArray[i].y === currentPosition.y) { return { animation: 'left', x: -64, y: 0 }; }
+      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y + 32 === currentPosition.y) { return { animation: 'down', x: 0, y: 64 }; }
+      return { animation: 'up', x: 0, y: -64 };
+    }
+  };
 
   const eat = (currentPosition) => {
     for (let i = 0; i < bananasArray.length; i++) {
@@ -137,6 +145,12 @@ const Stage2 = () => {
                 setScore(score + 1);
                 contInstructions(currentAction.id);
               }
+              break;
+            case 'jump':
+              currentXY = { x: xRef.current, y: yRef.current };
+              setAnimation(jump(currentXY).animation);
+              xRef.current += jump(currentXY).x;
+              yRef.current += jump(currentXY).y;
               break;
             default:
               break;
