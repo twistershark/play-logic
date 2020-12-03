@@ -21,10 +21,11 @@ import map from '../../assets/mapas/mapa_fase1_v1.png';
 
 const Stage1 = () => {
   let monkey;
-  const [barriers, setBarriers] = useState(barriersArray);
+  const [barriers] = useState(barriersArray);
   const [opacityBanana, setOpacityBanana] = useState([1, 1, 1]);
 
   const [animation, setAnimation] = useState('down');
+  const [eatAnimation, setEatAnimation] = useState('');
   const xRef = useRef(102); // initial 102
   const yRef = useRef(128); // initial 102
 
@@ -54,12 +55,15 @@ const Stage1 = () => {
         switch (i) {
           case 0:
             setOpacityBanana([0, opacityBanana[1], opacityBanana[2]]);
+            setEatAnimation('eating');
             break;
           case 1:
             setOpacityBanana([opacityBanana[0], 0, opacityBanana[2]]);
+            setEatAnimation('eating');
             break;
           case 2:
             setOpacityBanana([opacityBanana[0], opacityBanana[1], 0]);
+            setEatAnimation('eating');
             break;
           default:
             break;
@@ -169,12 +173,22 @@ const Stage1 = () => {
   }, [start, main, setMain]);
 
   useEffect(() => {
-    monkey.play({
-      type: animation,
-      fps: 12,
-      loop: true,
-    });
-  }, [monkey, animation]);
+    if (eatAnimation === 'eating') {
+      monkey.stop();
+      monkey.play({
+        type: 'eating',
+        fps: 24,
+        loop: false,
+        onFinish: () => setEatAnimation(''),
+      });
+    } else {
+      monkey.play({
+        type: animation,
+        fps: 12,
+        loop: true,
+      });
+    }
+  }, [monkey, animation, eatAnimation]);
 
   return (
 
@@ -187,7 +201,7 @@ const Stage1 = () => {
           ref={(ref) => (monkey = ref)}
           source={monkeySprite}
           columns={5}
-          rows={7}
+          rows={9}
           width={40}
           animations={{
             up: [15, 16, 17, 18, 17, 16],
@@ -195,6 +209,7 @@ const Stage1 = () => {
             left: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1],
             down: [10, 11, 12, 13, 12, 11, 10, 11, 12, 13, 12, 11, 10, 11, 12, 13, 14, 13, 12, 11],
             falling: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+            eating: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
           }}
         />
       </View>
