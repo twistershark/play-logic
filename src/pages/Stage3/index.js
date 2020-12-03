@@ -31,7 +31,6 @@ const Stage3 = () => {
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
   const {
     main, start, setStart, setMain,
@@ -41,9 +40,13 @@ const Stage3 = () => {
 
   const { handleScoreUpdate } = useAuth();
 
-  const updateScore = useCallback(() => {
-    handleScoreUpdate(2, score);
+  const updateScore = useCallback((stars) => {
+    handleScoreUpdate(2, stars);
   }, [handleScoreUpdate]);
+
+  const handleCloseModal = useCallback(() => {
+    setModalVisible(!modalVisible);
+  }, [modalVisible]);
 
   const captured = (currentPosition) => {
     for (let i = 0; i < trapsArray.length; i++) {
@@ -103,15 +106,12 @@ const Stage3 = () => {
   const contScore = () => {
     if (bananasEaten === 3) {
       if (moves < 14) {
-        setScore(3);
-      } else if (moves < 18) {
-        setScore(2);
-      } else {
-        setScore(1);
+        return 3;
+      } if (moves < 18) {
+        return 2;
       }
-    } else {
-      setScore(0);
     }
+    return 0;
   };
   useEffect(() => {
     if (start) {
@@ -198,9 +198,8 @@ const Stage3 = () => {
           clearTimeout();
           setStart(false);
           if (gameStarted) {
-            contScore();
             setModalVisible(true);
-            updateScore();
+            updateScore(contScore());
           }
         }
       }, 1000);
@@ -217,7 +216,7 @@ const Stage3 = () => {
   return (
 
     <View>
-      {modalVisible === true && <Score isVisible={modalVisible} score={score} />}
+      {modalVisible === true && <Score isVisible={modalVisible} score={contScore()} id={3} handleCloseModal={handleCloseModal} />}
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
         <SpriteSheet
