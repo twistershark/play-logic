@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   View,
+  StatusBar,
 } from 'react-native';
 
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -44,6 +45,7 @@ const Dashboard = () => {
 
   return (
     <SafeAreaView>
+      <StatusBar hidden={false} />
       <View style={styles.topArea}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Image source={iconUser} />
