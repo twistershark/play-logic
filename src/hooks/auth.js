@@ -36,21 +36,27 @@ const AuthProvider = ({ children }) => {
   }, [userID]);
 
   const handleScoreUpdate = useCallback(async (stage, score) => {
+    let stars1 = score1;
+    let stars2 = score2;
+    let stars3 = score3;
     if (stage === 0) {
       setScore1(Math.max(score, score1));
+      stars1 = Math.max(score, score1);
       if (score > 0) { setScore2(0); }
     } else if (stage === 1) {
       setScore2(Math.max(score, score2));
+      stars2 = Math.max(score, score2);
       if (score > 0) { setScore3(0); }
     } else {
       setScore3(Math.max(score, score3));
+      stars3 = Math.max(score, score3);
     }
 
     if (userID.length) {
       await firestore().collection('users').doc(userID).set({
-        score1,
-        score2,
-        score3,
+        score1: stars1,
+        score2: stars2,
+        score3: stars3,
       })
         .then();
     }
