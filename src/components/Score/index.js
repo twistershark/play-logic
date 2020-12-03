@@ -4,9 +4,9 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 
-import Modal from 'react-native-modal';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Orientation from 'react-native-orientation-locker';
 import { useNavigation } from '@react-navigation/native';
@@ -29,7 +29,7 @@ const ScorePage = ({ isVisible, score }) => {
     setVisible(false);
   };
   return (
-    <Modal isVisible={visible}>
+    <Modal isVisible={visible} transparent>
       <View style={styles.modal}>
         <View style={{ padding: 15, alignItems: 'center' }}>
           <View style={styles.container}>
@@ -61,7 +61,8 @@ const styles = EStyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 30,
+    marginVertical: 40,
+    marginHorizontal: 60,
     backgroundColor: 'green',
     borderRadius: 10,
   },
