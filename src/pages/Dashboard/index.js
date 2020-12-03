@@ -31,6 +31,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (musicPlaying) {
       music.play();
+      music.setNumberOfLoops(-1);
     } else if (!musicPlaying) {
       music.pause();
     }
