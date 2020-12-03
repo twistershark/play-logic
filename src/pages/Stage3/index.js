@@ -47,7 +47,10 @@ const Stage3 = () => {
 
   const captured = (currentPosition) => {
     for (let i = 0; i < trapsArray.length; i++) {
-      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y === currentPosition.y) { return true; }
+      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y === currentPosition.y) {
+        setAnimation('falling');
+        return true;
+      }
     }
     return false;
   };
@@ -208,12 +211,22 @@ const Stage3 = () => {
   }, [start, main, setMain]);
 
   useEffect(() => {
-    monkey.play({
-      type: animation,
-      fps: 12,
-      loop: true,
-    });
-  }, [monkey, animation]);
+    if (animation === 'falling') {
+      monkey.stop();
+      monkey.play({
+        type: 'falling',
+        fps: 12,
+        loop: false,
+        onFinish: () => setStart(false),
+      });
+    } else {
+      monkey.play({
+        type: animation,
+        fps: 12,
+        loop: true,
+      });
+    }
+  }, [monkey, animation, setStart]);
   return (
 
     <View>
@@ -223,14 +236,15 @@ const Stage3 = () => {
         <SpriteSheet
           ref={(ref) => (monkey = ref)}
           source={monkeySprite}
-          columns={6}
-          rows={4}
+          columns={5}
+          rows={7}
           width={40}
           animations={{
-            up: [18, 19, 20],
-            right: [6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 8, 7, 6, 7, 8, 9, 11, 9, 8, 7],
-            left: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 5, 3, 2, 1],
-            down: [12, 13, 15, 13],
+            up: [15, 16, 17, 18, 17, 16],
+            right: [5, 6, 7, 8, 7, 6, 5, 6, 7, 8, 7, 6, 5, 6, 7, 8, 9, 8, 7, 6],
+            left: [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 1],
+            down: [10, 11, 12, 13, 12, 11, 10, 11, 12, 13, 12, 11, 10, 11, 12, 13, 14, 13, 12, 11],
+            falling: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
           }}
         />
       </View>
