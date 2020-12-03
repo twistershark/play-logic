@@ -12,4 +12,4 @@ export const barriersArray = [
 
 export const bananasArray = [{ x: 102, y: 224 }, { x: 358, y: 128 }, { x: 390, y: 224 }];
 
-export const trapsArray = [{ x: 230, y: 224 }, { x: 326, y: 190 }];
+export const trapsArray = [{ x: 230, y: 224 }, { x: 326, y: 192 }];
