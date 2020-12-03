@@ -113,10 +113,12 @@ const Stage3 = () => {
   };
   const contScore = () => {
     if (bananasEaten === 3) {
-      if (moves < 14) {
+      if (moves < 16) {
         return 3;
-      } if (moves < 18) {
+      } if (moves < 20) {
         return 2;
+      } if (moves > 19) {
+        return 1;
       }
     }
     return 0;

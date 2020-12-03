@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   SafeAreaView,
@@ -13,7 +13,9 @@ import Orientation from 'react-native-orientation-locker';
 
 import { useNavigation } from '@react-navigation/native';
 import backArrow from '../../assets/backarrow.png';
-import userImage from '../../assets/userImage.png';
+import hungryMokey from '../../assets/personagens/macaco/Macaco_1star.png';
+import mokey from '../../assets/personagens/macaco/Macaco_2star.png';
+import fullerMokey from '../../assets/personagens/macaco/Macaco_3star.png';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -25,12 +27,23 @@ const Profile = () => {
   } = useAuth();
 
   const userName = user.email.split('@');
+  const [image, setImage] = useState(hungryMokey);
 
   const score = [
     { key: '1', star: score1 },
     { key: '2', star: score2 },
     { key: '3', star: score3 },
   ];
+
+  useEffect(() => {
+    if (score3 > 0) {
+      setImage(fullerMokey);
+    } else if (score2 > 0) {
+      setImage(mokey);
+    } else {
+      setImage(hungryMokey);
+    }
+  }, [score1, score2, score3]);
 
   const navigation = useNavigation();
 
@@ -43,7 +56,7 @@ const Profile = () => {
       </TouchableOpacity>
       <View style={styles.profileView}>
         <View style={styles.profileImage}>
-          <Image style={styles.userImage} source={userImage} />
+          <Image style={styles.userImage} source={image} />
         </View>
         <View style={{ marginVertical: 2 }}>
           <Text style={styles.userName}>{userName[0]}</Text>
@@ -86,7 +99,7 @@ const styles = EStyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#1A260180',
   },
 
   userImage: {
