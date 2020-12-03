@@ -25,13 +25,7 @@ const ScorePage = ({
   Orientation.lockToLandscape();
   const navigation = useNavigation();
   const { handleReset } = useAction();
-  const goToNextStage = () => {
-    console.log(`${score} ${id}`);
-    if (score > 0 && id !== 3) {
-      handleCloseModal();
-      navigation.navigate(`Stage${id + 1}`);
-    }
-  };
+
   const returnToStages = () => {
     handleReset();
     navigation.navigate('Stages');
@@ -52,9 +46,6 @@ const ScorePage = ({
           <View style={styles.rowButtons}>
             <TouchableOpacity onPress={returnToStages} style={styles.button}>
               <Image source={menu} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={goToNextStage} style={styles.button}>
-              <Image source={nextFase} />
             </TouchableOpacity>
           </View>
         </View>
