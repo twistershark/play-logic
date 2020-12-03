@@ -44,7 +44,7 @@ const Dashboard = () => {
   Orientation.lockToPortrait();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ marginTop: 10 }}>
       <StatusBar hidden={false} />
       <View style={styles.topArea}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
