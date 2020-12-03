@@ -9,8 +9,7 @@ import {
 import { useAction } from '../../../hooks/actions';
 
 import ifText from '../../../assets/botoes/bt-if.png';
-import banana from '../../../assets/botoes/bt-banana.png';
-import bananaPeel from '../../../assets/botoes/bt-banana-peel.png';
+import trap from '../../../assets/botoes/bt-trap-v2.png';
 
 const IfBox = () => {
   const [image, setImage] = useState(ifText);
@@ -22,11 +21,8 @@ const IfBox = () => {
 
   const change = () => {
     if (image === ifText) {
-      setImage(banana);
-      setActionName('banana');
-    } else if (image === banana) {
-      setImage(bananaPeel);
-      setActionName('bananaPeel');
+      setImage(trap);
+      setActionName('jump');
     } else {
       setImage(ifText);
       setActionName(' ');
