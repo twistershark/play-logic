@@ -44,6 +44,10 @@ const Stage1 = () => {
     handleScoreUpdate(0, stars);
   }, [handleScoreUpdate]);
 
+  const handleCloseModal = useCallback(() => {
+    setModalVisible(!modalVisible);
+  }, [modalVisible]);
+
   const eat = (currentPosition) => {
     for (let i = 0; i < bananasArray.length; i++) {
       if (bananasArray[i].x === currentPosition.x && bananasArray[i].y === currentPosition.y && opacityBanana[i] === 1) {
@@ -160,7 +164,7 @@ const Stage1 = () => {
             updateScore(contScore());
           }
         }
-      }, 1000);
+      }, 500);
     }
   }, [start, main, setMain]);
 
@@ -175,7 +179,7 @@ const Stage1 = () => {
   return (
 
     <View>
-      { modalVisible === true && <Score isVisible={modalVisible} score={contScore()} />}
+      { modalVisible === true && <Score isVisible={modalVisible} score={contScore()} id={1} handleCloseModal={handleCloseModal} />}
 
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>

@@ -36,7 +36,6 @@ const Stage2 = () => {
   const {
     main, start, setStart, setMain,
   } = useAction();
-
   Orientation.lockToLandscape();
 
   const { handleScoreUpdate } = useAuth();
