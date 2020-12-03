@@ -12,17 +12,17 @@ Tem como objetivo apresentar aos usuários a lógica de programação de uma for
 
 A idéia do jogo surgiu após o grupo perceber a dificuldade de alguns alunos em entender como funciona a interpretação lógica de um computador ao cursar a disciplina de Algoritmos de Programação de Computadores(APC), que é uma matéria de 1º semestre do curso de Engenharias na FGA.
 
-## Quem é o pesonagem principal
+## Quem é o personagem principal
 
 O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchus* ), Escolhemos esse macaquinho para representar a biodiversidade do nosso país, pois a espécie ocorre apenas no Nordeste brasileiro e na Caatinga.
 
 <p align="center">
-  <img src="src/assets/personagens/macaco/png/Macaco_idle_D.gif">
+  <img src="src/assets/visual/Macaco_idle.gif">
 </p>
 
 ## Informação sobre jogo
 
-O jogo funciona por meio de botões que serão arrastaveis para uma main. Dentro do jogo haverá um tutorial de como jogar.
+O jogo funciona por meio de botões que serão arrastáveis para uma main. Dentro do jogo haverá um tutorial de como jogar.
 
 ## Manual de Instalação
 
@@ -31,5 +31,5 @@ O jogo funciona por meio de botões que serão arrastaveis para uma main. Dentro
 3. Execute o arquivo apk e aguarde a finalização da instalação.
 
 <p align="center">
-  <img src="src/assets/personagens/macaco/png/Macaco_trap.gif">
+  <img src="src/assets/visual/Macaco_trap.gif">
 </p>
