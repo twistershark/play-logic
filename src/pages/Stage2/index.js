@@ -109,7 +109,6 @@ const Stage2 = () => {
   };
 
   const contScore = () => {
-    console.log(bananasEaten);
     if (bananasEaten === 3) {
       if (moves < 14) {
         return 3;

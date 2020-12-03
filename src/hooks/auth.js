@@ -42,11 +42,17 @@ const AuthProvider = ({ children }) => {
     if (stage === 0) {
       setScore1(Math.max(score, score1));
       stars1 = Math.max(score, score1);
-      if (score > 0) { setScore2(0); }
+      if (score > 0) {
+        setScore2(0);
+        stars2 = 0;
+      }
     } else if (stage === 1) {
       setScore2(Math.max(score, score2));
       stars2 = Math.max(score, score2);
-      if (score > 0) { setScore3(0); }
+      if (score > 0) {
+        setScore3(0);
+        stars3 = 0;
+      }
     } else {
       setScore3(Math.max(score, score3));
       stars3 = Math.max(score, score3);
@@ -117,7 +123,7 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: 0,
                 score2: -1,
@@ -126,10 +132,9 @@ const AuthProvider = ({ children }) => {
                 .then();
             } else {
               const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
-
-              setScore1(document.data.score1);
-              setScore2(document.data.score2);
-              setScore3(document.data.score3);
+              setScore1(document.data().score1);
+              setScore2(document.data().score2);
+              setScore3(document.data().score3);
             }
           } catch (e) {
             console.log(e);
@@ -151,7 +156,8 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
+              console.log(' é um  usuário');
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: 0,
                 score2: -1,
@@ -160,10 +166,9 @@ const AuthProvider = ({ children }) => {
                 .then();
             } else {
               const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
-
-              setScore1(document.data.score1);
-              setScore2(document.data.score2);
-              setScore3(document.data.score3);
+              setScore1(document.data().score1);
+              setScore2(document.data().score2);
+              setScore3(document.data().score3);
             }
           } catch (e) {
             console.log(e);
@@ -196,7 +201,7 @@ const AuthProvider = ({ children }) => {
               '@PlayLogic:userid', loggedUser.user.uid,
             );
 
-            if (loggedUser.additionalUserInfo.isNewUser === false) {
+            if (loggedUser.additionalUserInfo.isNewUser === true) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
                 score1: 0,
                 score2: -1,
@@ -206,9 +211,9 @@ const AuthProvider = ({ children }) => {
             } else {
               const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
 
-              setScore1(document.data.score1);
+              setScore1(document.data().score1);
               setScore2(document.data.score2);
-              setScore3(document.data.score3);
+              setScore3(document.data().score3);
             }
           } catch (e) {
             console.log(e);
