@@ -37,11 +37,11 @@ const AuthProvider = ({ children }) => {
 
   const handleScoreUpdate = useCallback(async (stage, score) => {
     if (stage === 0) {
-      setScore1(score);
+      setScore1(Math.max(score, score1));
     } else if (stage === 1) {
-      setScore2(score);
+      setScore2(Math.max(score, score2));
     } else {
-      setScore3(score);
+      setScore3(Math.max(score, score3));
     }
 
     if (userID.length) {

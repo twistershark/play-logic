@@ -42,7 +42,7 @@ const Stage3 = () => {
   const { handleScoreUpdate } = useAuth();
 
   const updateScore = useCallback(() => {
-    handleScoreUpdate(3, score);
+    handleScoreUpdate(2, score);
   }, [handleScoreUpdate]);
 
   const captured = (currentPosition) => {
