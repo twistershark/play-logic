@@ -10,7 +10,6 @@ import { useAction } from '../../../hooks/actions';
 
 import action from '../../../assets/botoes/bt-action.png';
 import eat from '../../../assets/botoes/bt-eat-2.png';
-import jump from '../../../assets/botoes/bt-jump-1.png';
 
 const ActionBox = () => {
   const [image, setImage] = useState(action);
@@ -24,9 +23,6 @@ const ActionBox = () => {
     if (image === action) {
       setImage(eat);
       setActionName('eat');
-    } else if (image === eat) {
-      setImage(jump);
-      setActionName('jump');
     } else {
       setImage(action);
       setActionName(' ');

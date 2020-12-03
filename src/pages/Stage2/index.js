@@ -8,12 +8,12 @@ import { View, Image } from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 import Orientation from 'react-native-orientation-locker';
 
-// import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 import { useAction } from '../../hooks/actions';
 
 import Stage from '../../components/Stage';
 import Score from '../../components/Score';
-import { barriersArray, bananasArray } from './positions';
+import { barriersArray, bananasArray, trapsArray } from './positions';
 
 import monkeySprite from '../../assets/personagens/macaco/Macaco_Spritesheet.png';
 import banana from '../../assets/objetos/banana_normal.png';
@@ -23,6 +23,7 @@ const Stage2 = () => {
   let monkey;
   const [barriers, setBarriers] = useState(barriersArray);
   const [opacityBanana, setOpacityBanana] = useState([1, 1, 1]);
+  const [bananasEaten, setBananasEaten] = useState(0);
 
   const [animation, setAnimation] = useState('down');
   const xRef = useRef(102); // initial 102
@@ -38,11 +39,27 @@ const Stage2 = () => {
 
   Orientation.lockToLandscape();
 
-  // const { handleScoreUpdate } = useAuth();
+  const { handleScoreUpdate } = useAuth();
 
-  // const updateScore = useCallback(() => {
-  //   handleScoreUpdate(2, 3);
-  // }, [handleScoreUpdate]);
+  const updateScore = useCallback(() => {
+    handleScoreUpdate(2, score);
+  }, [handleScoreUpdate]);
+
+  const captured = (currentPosition) => {
+    for (let i = 0; i < trapsArray.length; i++) {
+      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y === currentPosition.y) { return true; }
+    }
+    return false;
+  };
+  const jump = (currentPosition) => {
+    for (let i = 0; i < trapsArray.length; i++) {
+      if (trapsArray[i].x === currentPosition.x + 32 && trapsArray[i].y === currentPosition.y) { return 'right'; }
+      if (trapsArray[i].x === currentPosition.x - 32 && trapsArray[i].y === currentPosition.y) { return 'left'; }
+      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y === currentPosition.y + 32) { return 'down'; }
+      if (trapsArray[i].x === currentPosition.x && trapsArray[i].y === currentPosition.y - 32) { return 'up'; }
+    }
+    return null;
+  };
 
   const eat = (currentPosition) => {
     for (let i = 0; i < bananasArray.length; i++) {
@@ -86,12 +103,25 @@ const Stage2 = () => {
     }
   };
 
+  const contScore = () => {
+    if (bananasEaten === 3) {
+      if (moves < 15) {
+        setScore(3);
+      } else if (moves < 19) {
+        setScore(2);
+      } else {
+        setScore(1);
+      }
+    } else {
+      setScore(0);
+    }
+  };
+
   useEffect(() => {
     if (start) {
       setTimeout(() => {
         if (main.length > 0) {
           setGameStarted(true);
-          console.log(moves);
           const currentAction = main.shift();
           let currentXY;
 
@@ -134,20 +164,47 @@ const Stage2 = () => {
             case 'eat':
               currentXY = { x: xRef.current, y: yRef.current };
               if (eat(currentXY)) {
-                setScore(score + 1);
+                setBananasEaten(bananasEaten + 1);
                 contInstructions(currentAction.id);
+              }
+              break;
+            case 'jump':
+              currentXY = { x: xRef.current, y: yRef.current };
+              switch (jump(currentXY)) {
+                case 'right':
+                  setAnimation('right');
+                  xRef.current += 64;
+                  break;
+                case 'left':
+                  setAnimation('left');
+                  xRef.current -= 64;
+                  break;
+                case 'up':
+                  setAnimation('up');
+                  yRef.current -= 64;
+                  break;
+                case 'down':
+                  setAnimation('down');
+                  yRef.current += 64;
+                  break;
+                default:
+                  break;
               }
               break;
             default:
               break;
           }
-
+          if (captured(currentXY)) {
+            setMain([]);
+          }
           setMain(main.slice(0));
         } else {
           clearTimeout();
           setStart(false);
           if (gameStarted) {
+            contScore();
             setModalVisible(true);
+            updateScore();
           }
         }
       }, 1000);
@@ -165,7 +222,7 @@ const Stage2 = () => {
   return (
 
     <View>
-      {modalVisible === true && <Score isVisible={modalVisible} score={2} />}
+      {modalVisible === true && <Score isVisible={modalVisible} score={score} />}
 
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>

@@ -30,7 +30,6 @@ const Stage1 = () => {
 
   const [gameStarted, setGameStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
   const [bananasEaten, setBananasEaten] = useState(0);
   const {
@@ -41,8 +40,8 @@ const Stage1 = () => {
 
   const { handleScoreUpdate } = useAuth();
 
-  const updateScore = useCallback(() => {
-    handleScoreUpdate(0, score);
+  const updateScore = useCallback((stars) => {
+    handleScoreUpdate(0, stars);
   }, [handleScoreUpdate]);
 
   const eat = (currentPosition) => {
@@ -89,15 +88,12 @@ const Stage1 = () => {
   const contScore = () => {
     if (bananasEaten === 3) {
       if (moves < 14) {
-        setScore(3);
-      } else if (moves < 18) {
-        setScore(2);
-      } else {
-        setScore(1);
+        return 3;
+      } if (moves < 18) {
+        return 2;
       }
-    } else {
-      setScore(0);
     }
+    return 0;
   };
 
   useEffect(() => {
@@ -160,9 +156,8 @@ const Stage1 = () => {
           clearTimeout();
           setStart(false);
           if (gameStarted) {
-            contScore();
             setModalVisible(true);
-            updateScore();
+            updateScore(contScore());
           }
         }
       }, 1000);
@@ -180,7 +175,7 @@ const Stage1 = () => {
   return (
 
     <View>
-      { modalVisible === true && <Score isVisible={modalVisible} score={score} />}
+      { modalVisible === true && <Score isVisible={modalVisible} score={contScore()} />}
 
       <Stage map={map} />
       <View style={{ position: 'absolute', top: yRef.current, left: xRef.current }}>
