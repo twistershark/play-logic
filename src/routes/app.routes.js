@@ -28,7 +28,6 @@ const AppRoutes = () => (
     <App.Screen name="Stage1" component={Stage1} />
     <App.Screen name="Stage2" component={Stage2} />
     <App.Screen name="Stage3" component={Stage3} />
-
   </App.Navigator>
 );
 
