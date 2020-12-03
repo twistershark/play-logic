@@ -30,7 +30,7 @@ const Stage = ({ map }) => {
   const handleGoBack = useCallback(() => {
     if (!start) {
       handleReset();
-      navigation.goBack();
+      navigation.navigate('Stages');
     }
   }, [navigation, handleReset, start]);
 

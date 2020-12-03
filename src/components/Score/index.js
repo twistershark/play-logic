@@ -18,11 +18,20 @@ import star from '../../assets/star.png';
 import noStar from '../../assets/emptyStar.png';
 import { useAction } from '../../hooks/actions';
 
-const ScorePage = ({ isVisible, score }) => {
+const ScorePage = ({
+  isVisible, score, id, handleCloseModal,
+}) => {
   const [visible, setVisible] = useState(isVisible);
   Orientation.lockToLandscape();
   const navigation = useNavigation();
   const { handleReset } = useAction();
+  const goToNextStage = () => {
+    console.log(`${score} ${id}`);
+    if (score > 0 && id !== 3) {
+      handleCloseModal();
+      navigation.navigate(`Stage${id + 1}`);
+    }
+  };
   const returnToStages = () => {
     handleReset();
     navigation.navigate('Stages');
@@ -44,7 +53,7 @@ const ScorePage = ({ isVisible, score }) => {
             <TouchableOpacity onPress={returnToStages} style={styles.button}>
               <Image source={menu} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}} style={styles.button}>
+            <TouchableOpacity onPress={goToNextStage} style={styles.button}>
               <Image source={nextFase} />
             </TouchableOpacity>
           </View>

@@ -18,7 +18,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [userID, setUserID] = useState('');
-  const [score1, setScore1] = useState(-1);
+  const [score1, setScore1] = useState(0);
   const [score2, setScore2] = useState(-1);
   const [score3, setScore3] = useState(-1);
   const [initializing, setInitializing] = useState(true);
@@ -38,8 +38,10 @@ const AuthProvider = ({ children }) => {
   const handleScoreUpdate = useCallback(async (stage, score) => {
     if (stage === 0) {
       setScore1(Math.max(score, score1));
+      if (score > 0) { setScore2(0); }
     } else if (stage === 1) {
       setScore2(Math.max(score, score2));
+      if (score > 0) { setScore3(0); }
     } else {
       setScore3(Math.max(score, score3));
     }
@@ -111,7 +113,7 @@ const AuthProvider = ({ children }) => {
 
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: -1,
+                score1: 0,
                 score2: -1,
                 score3: -1,
               })
@@ -145,7 +147,7 @@ const AuthProvider = ({ children }) => {
 
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: -1,
+                score1: 0,
                 score2: -1,
                 score3: -1,
               })
@@ -190,7 +192,7 @@ const AuthProvider = ({ children }) => {
 
             if (loggedUser.additionalUserInfo.isNewUser === false) {
               await firestore().collection('users').doc(loggedUser.user.uid).set({
-                score1: -1,
+                score1: 0,
                 score2: -1,
                 score3: -1,
               })
@@ -216,7 +218,7 @@ const AuthProvider = ({ children }) => {
             );
 
             await firestore().collection('users').doc(loggedUser.user.uid).set({
-              score1: -1,
+              score1: 0,
               score2: -1,
               score3: -1,
             })
