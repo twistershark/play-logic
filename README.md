@@ -14,7 +14,7 @@ A idéia do jogo surgiu após o grupo perceber a dificuldade de alguns alunos em
 
 ## Quem é o personagem principal
 
-O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchus* ). Escolhemos esse macaquinho para representar a biodiversidade do nosso país, pois a espécie ocorre apenas no Nordeste brasileiro e na Caatinga.
+O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchus* ). Escolhemos esse macaquinho para representar a biodiversidade do nosso país, pois a espécie é endêmica ao Brasil ( [icmbio](https://www.icmbio.gov.br/portal/faunabrasileira/estado-de-conservacao/7204-mamiferos-callithrix-jacchus-sagui-de-tufo-branco) )
 
 <p align="center">
   <img src="src/assets/visual/Macaco_idle.gif">
