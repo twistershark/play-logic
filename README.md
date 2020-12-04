@@ -24,6 +24,18 @@ O jogador irá controlar o Ameixa, um sagui-de-tufos-brancos( *Callithrix jacchu
 
 O jogo funciona por meio de botões que serão arrastáveis para uma caixa chamada main. O usuário deve pensar em qual ação ele deve executar em cada momento para conseguir concluir o objetivo de cada fase que é comer as 3 bananas gastando o mínimo de movimentos possíveis. Para isso, o usuário pode utilizar do recurso de loop para repetir algumas ações, levando em consideração que o jogo conta as ações do loop como um único movimento.
 
+## Guia de Jogo
+Ao entrar na fase o jogador irá se deparar com uma barra de ações logo abaixo do mapa, um espaço para a main e outro para o loop.
+Para movimentar o personagem deve arrastar os blocos de movimento até a main. Utilize os botões de seta para movimentar o ameixa. Use o botão de ação para comer as bananas que estão na mesma casa que o ameixa. 
+
+Toque rapidamente nos botões para circular entre as opções de ação. Arraste os botões de seta para a caixa "main" para movimentar o ameixa na direção desejada. A ação de "comer" faz com que o ameixa se alimente das bananas que estão no mesmo quadrado que ele.
+
+Arraste os comandos que deseja repetir para a caixa "loop", selecione quantas vezes você deseja executar os comandos com o botão "loop" e depois arraste o número para a caixa "main".
+
+Caso encontre uma armadilha você pode usar a acao "if" para fazer o ameixa procurar uma armadilha próxima e pular por cima dela.
+Quando estiver satisfeito com a quantidade de comandos o jogador deve apertar o botão de play. 
+
+
 ## Manual de Instalação
 
 1. Baixe o arquivo .apk em seu aparelho Android.
