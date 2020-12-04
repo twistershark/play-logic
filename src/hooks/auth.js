@@ -42,14 +42,14 @@ const AuthProvider = ({ children }) => {
     if (stage === 0) {
       setScore1(Math.max(score, score1));
       stars1 = Math.max(score, score1);
-      if (score > 0) {
+      if (score > 0 && score2 === -1) {
         setScore2(0);
         stars2 = 0;
       }
     } else if (stage === 1) {
       setScore2(Math.max(score, score2));
       stars2 = Math.max(score, score2);
-      if (score > 0) {
+      if (score > 0 && score3 === -1) {
         setScore3(0);
         stars3 = 0;
       }
@@ -212,7 +212,7 @@ const AuthProvider = ({ children }) => {
               const document = await firestore().collection('users').doc(loggedUser.user.uid).get();
 
               setScore1(document.data().score1);
-              setScore2(document.data.score2);
+              setScore2(document.data().score2);
               setScore3(document.data().score3);
             }
           } catch (e) {
