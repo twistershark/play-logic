@@ -125,7 +125,7 @@ const OnBoarding = () => {
         renderItem={({ item }) => (
           <View style={{ width, alignItems: 'center', padding: 20 }}>
             <View style={{ flex: 0.7, justifyContent: 'center' }}>
-              <Image source={item.image} style={{ width: width / 2.5, height: width / 2.5, resizeMode: 'contain' }} />
+              <Image source={item.image} style={{ width: width / 3, height: width / 3, resizeMode: 'contain' }} />
             </View>
             <View style={{ flex: 0.3 }}>
               <Text style={{

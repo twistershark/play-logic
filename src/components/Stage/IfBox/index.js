@@ -41,7 +41,7 @@ const IfBox = () => {
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (gesture) => !(gesture.dx > 2 && gesture.dy > 2),
+      onMoveShouldSetPanResponder: (gesture) => !(gesture.dx > 5 && gesture.dy > 5),
       onPanResponderGrant: () => {
         pan.setOffset({
           x: pan.x._value,
