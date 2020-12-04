@@ -2,7 +2,6 @@ import monkeyImage from '../../assets/visual/Macaco_F.png';
 import bananaNormal from '../../assets/visual/banana_normal.png';
 import rede from '../../assets/visual/rede.png';
 import loop from '../../assets/visual/loop.png';
-import comojogar from '../../assets/tutorial/comojogar.gif';
 
 export const bgs = ['#545454', '#c29308', '#592C15', '#538900', '#592C15'];
 

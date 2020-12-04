@@ -13,6 +13,8 @@ import Stage2 from '../pages/Stage2';
 
 import Stage3 from '../pages/Stage3';
 
+import Tutorial from '../pages/Tutorial';
+
 const App = createStackNavigator();
 
 const AppRoutes = () => (
@@ -28,6 +30,7 @@ const AppRoutes = () => (
     <App.Screen name="Stage1" component={Stage1} />
     <App.Screen name="Stage2" component={Stage2} />
     <App.Screen name="Stage3" component={Stage3} />
+    <App.Screen name="Tutorial" component={Tutorial} />
   </App.Navigator>
 );
 
