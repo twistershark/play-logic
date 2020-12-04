@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
   SafeAreaView,
@@ -34,6 +34,12 @@ const SignIn = () => {
 
   Orientation.lockToPortrait();
 
+  const handleLogIn = useCallback(() => {
+    if (email.length && password.length) {
+      login(email, password);
+    }
+  }, [email, login, password]);
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -50,7 +56,7 @@ const SignIn = () => {
             <Input value={email} placeholder="Email" onChangeText={(userEmail) => setEmail(userEmail)} />
             <Input value={password} placeholder="Senha" onChangeText={(userPassword) => setPassword(userPassword)} secureTextEntry />
           </View>
-          <Button onPress={() => login(email, password)}>Entrar</Button>
+          <Button onPress={handleLogIn}>Entrar</Button>
 
           <View style={styles.socialLoginContainer}>
             <TouchableOpacity style={styles.socialLogin} onPress={() => googleLogin()}>

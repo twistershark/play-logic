@@ -22,9 +22,9 @@ import facebookLogo from '../../assets/social/facebook.png';
 import { useAuth } from '../../hooks/auth';
 
 const SignUp = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [passwordConfirmation, setPasswordConfirmation] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const navigation = useNavigation();
 
@@ -33,8 +33,10 @@ const SignUp = () => {
   Orientation.lockToPortrait();
 
   const handleSignUp = useCallback(() => {
-    if (password === passwordConfirmation) {
-      register(email, password);
+    if (password === passwordConfirmation && password.length) {
+      if (email.length) {
+        register(email, password);
+      }
     }
   }, [register, email, password, passwordConfirmation]);
 
