@@ -137,7 +137,7 @@ const AuthProvider = ({ children }) => {
               setScore3(document.data().score3);
             }
           } catch (e) {
-            console.log(e);
+            // Error
           }
         },
         googleLogin: async () => {
@@ -171,7 +171,7 @@ const AuthProvider = ({ children }) => {
               setScore3(document.data().score3);
             }
           } catch (e) {
-            console.log(e);
+            // Error
           }
         },
         facebookLogin: async () => {
@@ -216,7 +216,7 @@ const AuthProvider = ({ children }) => {
               setScore3(document.data().score3);
             }
           } catch (e) {
-            console.log(e);
+            // Error
           }
         },
         register: async (email, password) => {
@@ -235,7 +235,7 @@ const AuthProvider = ({ children }) => {
             })
               .then();
           } catch (e) {
-            console.log(e);
+            // Error
           }
         },
         logout: async () => {
@@ -248,7 +248,7 @@ const AuthProvider = ({ children }) => {
 
             await auth().signOut();
           } catch (e) {
-            console.log(e);
+            // Error
           }
         },
       }}
